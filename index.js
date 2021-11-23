@@ -1,49 +1,47 @@
-'use strict';
+const express = require('express')
+const bodyParser = require('body-parser')
+const request = require('request')
+const AIMLParser = require('aimlparser')
 
-const line = require('@line/bot-sdk');
-const express = require('express');
+const app = express()
+const port = process.env.PORT || 4000
+const aimlParser = new AIMLParser({ name:'HelloBot' })
 
-// create LINE SDK config from env variables
-const config = {
-  channelAccessToken: process.env.CHANNEL_ACCESS_TOKEN,
-  channelSecret: process.env.CHANNEL_SECRET,
-};
+aimlParser.load(['./message.xml'])
 
-// create LINE SDK client
-const client = new line.Client(config);
+app.use(bodyParser.urlencoded({ extended: false }))
+app.use(bodyParser.json())
 
-// create Express app
-// about Express itself: https://expressjs.com/
-const app = express();
+app.post('/webhook', (req, res) => {
+    let reply_token = req.body.events[0].replyToken
+    let msg = req.body.events[0].message.text
+    aimlParser.getResult(msg, (answer, wildCardArray, input) => {
+        reply(reply_token, answer)
+    })
+    res.sendStatus(200)
+})
 
-// register a webhook handler with middleware
-// about the middleware, please refer to doc
-app.post('/callback', line.middleware(config), (req, res) => {
-  Promise
-    .all(req.body.events.map(handleEvent))
-    .then((result) => res.json(result))
-    .catch((err) => {
-      console.error(err);
-      res.status(500).end();
+app.listen(port)
+
+function reply(reply_token, msg) {
+    let headers = {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer {xxxxxxx}'
+    }
+
+    let body = JSON.stringify({
+        replyToken: reply_token,
+        messages: [{
+            type: 'text',
+            text: msg
+        }]
+    })
+
+    request.post({
+        url: 'https://api.line.me/v2/bot/message/reply',
+        headers: headers,
+        body: body
+    }, (err, res, body) => {
+        console.log('status = ' + res.statusCode);
     });
-});
-
-// event handler
-function handleEvent(event) {
-  if (event.type !== 'message' || event.message.type !== 'text') {
-    // ignore non-text-message event
-    return Promise.resolve(null);
-  }
-
-  // create a echoing text message
-  const echo = { type: 'text', text: event.message.text };
-
-  // use reply API
-  return client.replyMessage(event.replyToken, echo);
 }
-
-// listen on port
-const port = process.env.PORT || 3000;
-app.listen(port, () => {
-  console.log(`listening on ${port}`);
-});
