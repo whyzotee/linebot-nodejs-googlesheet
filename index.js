@@ -1,69 +1,47 @@
-const https = require("https")
-const express = require("express")
-const app = express()
-const PORT = process.env.PORT || 3000
-const TOKEN = process.env.LINE_ACCESS_TOKEN
-let message = "test";
-app.use(express.json())
-app.use(express.urlencoded({
-  extended: true
-}))
+const line = require('@line/bot-sdk');
+const express = require('express');
 
-app.get("/", (req, res) => {
-  res.sendStatus(200)
-})
+// create LINE SDK config from env variables
+const config = {
+  channelAccessToken: process.env.CHANNEL_ACCESS_TOKEN,
+  channelSecret: process.env.CHANNEL_SECRET,
+};
 
-app.post("/webhook", function(req, res) {
-  res.send("HTTP POST request sent to the webhook URL!")
-  // If the user sends a message to your bot, send a reply message
-  // if (req.body.events[0].message.text === "สีเหลือง") message == "Yellow!"
-  // else if(req.body.events[0].message.text === "มะม่วง") message == "Mango!";
-  if (req.body.events[0].message === "สีเหลือง") {
-    
-    // Message data, must be stringified
-    const dataString = JSON.stringify({
-      replyToken: req.body.events[0].replyToken,
-      messages: [
-        {
-          "type": "text",
-          "text": "Yellow!"
-        }
-      ]
-    })
+// create LINE SDK client
+const client = new line.Client(config);
 
-    // Request header
-    const headers = {
-      "Content-Type": "application/json",
-      "Authorization": "Bearer " + TOKEN
-    }
+// create Express app
+// about Express itself: https://expressjs.com/
+const app = express();
 
-    // Options to pass into the request
-    const webhookOptions = {
-      "hostname": "api.line.me",
-      "path": "/v2/bot/message/reply",
-      "method": "POST",
-      "headers": headers,
-      "body": dataString
-    }
+// register a webhook handler with middleware
+// about the middleware, please refer to doc
+app.post('/callback', line.middleware(config), (req, res) => {
+  Promise
+    .all(req.body.events.map(handleEvent))
+    .then((result) => res.json(result))
+    .catch((err) => {
+      console.error(err);
+      res.status(500).end();
+    });
+});
 
-    // Define request
-    const request = https.request(webhookOptions, (res) => {
-      res.on("data", (d) => {
-        process.stdout.write(d)
-      })
-    })
-
-    // Handle error
-    request.on("error", (err) => {
-      console.error(err)
-    })
-
-    // Send data
-    request.write(dataString)
-    request.end()
+// event handler
+function handleEvent(event) {
+  if (event.type !== 'message' || event.message.type !== 'text') {
+    // ignore non-text-message event
+    return Promise.resolve(null);
   }
-})
 
-app.listen(PORT, () => {
-  console.log(`Example app listening at http://localhost:${PORT}`)
-})
+  // create a echoing text message
+  const echo = { type: 'text', text: event.message.text };
+
+  // use reply API
+  return client.replyMessage(event.replyToken, echo);
+}
+
+// listen on port
+const port = process.env.PORT || 3000;
+app.listen(port, () => {
+  console.log(`listening on ${port}`);
+});
