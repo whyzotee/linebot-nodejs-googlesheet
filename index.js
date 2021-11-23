@@ -3,7 +3,7 @@ const express = require("express")
 const app = express()
 const PORT = process.env.PORT || 3000
 const TOKEN = process.env.LINE_ACCESS_TOKEN
-
+let message = "test";
 app.use(express.json())
 app.use(express.urlencoded({
   extended: true
@@ -17,13 +17,15 @@ app.post("/webhook", function(req, res) {
   res.send("HTTP POST request sent to the webhook URL!")
   // If the user sends a message to your bot, send a reply message
   if (req.body.events[0].type === "message") {
+    if (req.body.events[0].message.text === "สีเหลือง") message == "Yellow!"
+    else if(req.body.events[0].message.text === "มะม่วง") message == "Mango!";
     // Message data, must be stringified
     const dataString = JSON.stringify({
       replyToken: req.body.events[0].replyToken,
       messages: [
         {
           "type": "text",
-          "text": "Yellow!"
+          "text": message
         }
       ]
     })
