@@ -72,6 +72,9 @@ const handleEvent = async (event) => {
             case "มะม่วง":
                 replyLineMessage = "Mango!"
                 break
+            case "ห้ะ":
+                replyLineMessage = "อ้ะ!"
+                break
             default:
                 return null
         }
