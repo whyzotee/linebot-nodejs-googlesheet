@@ -1,1 +1,1 @@
-npm app.js
+npm run app.js
