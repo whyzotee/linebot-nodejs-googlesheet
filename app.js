@@ -39,8 +39,15 @@ app.get("/", async (req, res) => {
     //         values: [["Test101", "102"]]
     //     }
     // });
-    
-    res.send(getRows.data.values);
+
+    let abc = getRows.data.values;
+    let x 
+    for (var i=0;i<abc.length; i++){
+        console.log(getRows.data.values[i])
+        x = getRows.data.values[i]
+    }
+
+    res.send(x);
     
 });
 
@@ -48,7 +55,7 @@ app.get("/", async (req, res) => {
 app.post('/webhook', line.middleware(lineConfig), async (req, res) => {
     try {
         const events = req.body.events
-        console.log('event=>>>>', events)
+        console.log('event', events)
         return events.length > 0 ? await events.map(item => handleEvent(item)) : res.status(200).send("OK")
     } catch (e) {
         res.status(500).end()
@@ -130,13 +137,23 @@ const handleEvent = async (event) => {
                             "contents": [
                                 {"type": "box", "layout": "horizontal",
                                     "contents": [
+                                        {"type": "text", "text": "ชื่อสินค้า", "size": "sm", "color": "#ffffff", "flex": 0},
+                                        {"type": "text", "text": "ราคา", "size": "sm", "color": "#ffffff", "align": "end"},
+                                    ],
+                                },
+                                {"type": "box", "layout": "horizontal",
+                                    "contents": [
+                                        {"type": "text", "text": "ราคา", "size": "sm", "color": "#ffffff", "flex": 0},
+                                        {"type": "text", "text": "test", "size": "sm", "color": "#ffffff", "align": "end"}
+                                    ]
+                                },
+                                {"type": "box", "layout": "horizontal",
+                                    "contents": [
                                         {"type": "text", "text": "จำนวน", "size": "sm", "color": "#ffffff", "flex": 0},
                                         {"type": "text", "text": "test", "size": "sm", "color": "#ffffff", "align": "end"},
                                     ],
                                 },
-                                {
-                                    "type": "box",
-                                    "layout": "horizontal",
+                                {"type": "box", "layout": "horizontal",
                                     "contents": [
                                         {"type": "text", "text": "ราคา", "size": "sm", "color": "#ffffff", "flex": 0},
                                         {"type": "text", "text": "test", "size": "sm", "color": "#ffffff", "align": "end"}
@@ -248,7 +265,6 @@ const handleEvent = async (event) => {
                 }
                 if (z!=true) replyLineMessage = {"type": "text", "text": "ไม่พบข้อมูลที่ต้องการตรวจสอบ" }
                 else replyLineMessage = msg2 
-                
                 break
             default:
                 replyLineMessage = {"type": "text", "text": "ไม่พบคำสั่ง"}
@@ -262,12 +278,14 @@ const handleEvent = async (event) => {
 const PORT = process.env.PORT || 3000;
 
 //รันบน localhost
-app.listen(4000, () => {
-    console.log(`listening on 4000`)
-})
+
+// app.listen(4000, () => {
+//     console.log(`listening on 4000`)
+// })
 
 // รันบน server
-// app.listen(PORT, () => {
-//     console.log(PORT);
-//     console.log(`listening on Port ${PORT}`);
-// })
+
+app.listen(PORT, () => {
+    console.log(PORT);
+    console.log(`listening on Port ${PORT}`);
+})
