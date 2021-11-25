@@ -20,36 +20,32 @@ const auth = new google.auth.GoogleAuth({
     scopes: "https://www.googleapis.com/auth/spreadsheets"
 });
 
-app.get("/", async (req, res) => {
-    const authclient = await auth.getClient();
-    const googleSheets = google.sheets({version: "v4", auth: authclient });
-    const spreadsheetId = "1TFMBHX19EVQWgTZIruszDxIlXo5r1Oj4LYsQQTcutlM";
-    const metaData = await googleSheets.spreadsheets.get({auth, spreadsheetId});
+// app.get("/", async (req, res) => {
+//     const authclient = await auth.getClient();
+//     const googleSheets = google.sheets({version: "v4", auth: authclient });
+//     const spreadsheetId = "1TFMBHX19EVQWgTZIruszDxIlXo5r1Oj4LYsQQTcutlM";
+//     const metaData = await googleSheets.spreadsheets.get({auth, spreadsheetId});
 
-    //get ค่าแถวของ GS
-    const getRows = await googleSheets.spreadsheets.values.get({auth, spreadsheetId, range: "data1"});
+//     //get ค่าแถวของ GS
+//     const getRows = await googleSheets.spreadsheets.values.get({auth, spreadsheetId, range: "data1"});
 
-    //ใส่ข้อมูลลงแถวของ GS
-    // await googleSheets.spreadsheets.values.append({
-    //     auth,
-    //     spreadsheetId,
-    //     range: "data1!A:B",
-    //     valueInputOption: "USER_ENTERED",
-    //     resource: {
-    //         values: [["Test101", "102"]]
-    //     }
-    // });
+//     let abc = getRows.data.values;
+//     let x,y,z
+//     for (var i=1;i<abc.length; i++){
+//         console.log(getRows.data.values[i])
+//         x = getRows.data.values[i]
+//         y = getRows.data.values[i]
+//         z = 
+//         console.log(x+y+z)
+//     }
 
-    // let abc = getRows.data.values;
-    // let x 
-    // for (var i=0;i<abc.length; i++){
-    //     console.log(getRows.data.values[i])
-    //     x = getRows.data.values[i]
-    // }
-
-    // res.send(x);
-    
-});
+//     res.send();
+ 
+//     //ใส่ข้อมูลลงแถวของ GS
+//     let data = "test" 
+//     const update = await googleSheets.spreadsheets.values.update({auth, spreadsheetId, range: "data1!A5:B5", valueInputOption: "USER_ENTERED", resource:{"values": data} });
+//     res.send(update);
+// });
 
 // ฟังชั่นหลัก
 app.post('/webhook', line.middleware(lineConfig), async (req, res) => {
@@ -88,20 +84,22 @@ const handleEvent = async (event) => {
 
         // ตัวแปลเก็บข้อมูลจาก GS และ เก็บค่าเช็ค
         let x, y
-        let z = true;
+        let z, t = true;
 
         // เช็คข้อมูลว่าตรงกับ GS หรือเปล่า
-        for (var i=0;i<getRows.data.values.length; i++){
+        for (var i=1;i<getRows.data.values.length; i++){
             if(getRows.data.values[i][0] != args[1]) {
                 z = false;     
+                t = true;
             }
         }
 
-        for (var i=0;i<getRows.data.values.length; i++){
+        for (var i=1;i<getRows.data.values.length; i++){
             if(getRows.data.values[i][0] == args[1]) {
-                x=getRows.data.values[i][1]
-                y=getRows.data.values[i][2]
-                z = true;     
+                x = getRows.data.values[i][1]
+                y = getRows.data.values[i][2]
+                z = true; 
+                t = false;   
             }
         }
 
@@ -146,22 +144,22 @@ const handleEvent = async (event) => {
                                 {
                                     "type": "box", "layout": "horizontal",
                                     "contents": [
-                                        {"type": "text", "text": "น้ำอัดลมA", "size": "sm", "color": "#ffffff", "flex": 0},
-                                        {"type": "text", "text": "120", "size": "sm", "color": "#ffffff", "align": "end"}
+                                        {"type": "text", "text": getRows.data.values[1][0], "size": "sm", "color": "#ffffff", "flex": 0},
+                                        {"type": "text", "text": getRows.data.values[1][1], "size": "sm", "color": "#ffffff", "align": "end"}
                                     ]
                                 },
                                 {
                                     "type": "box", "layout": "horizontal",
                                     "contents": [
-                                        {"type": "text", "text": "น้ำอัดลมB", "size": "sm", "color": "#ffffff", "flex": 0},
-                                        {"type": "text", "text": "210", "size": "sm", "color": "#ffffff", "align": "end"},
+                                        {"type": "text", "text": getRows.data.values[2][0], "size": "sm", "color": "#ffffff", "flex": 0},
+                                        {"type": "text", "text": getRows.data.values[2][1], "size": "sm", "color": "#ffffff", "align": "end"},
                                     ],
                                 },
                                 {
                                     "type": "box", "layout": "horizontal",
                                     "contents": [
-                                        {"type": "text", "text": "น้ำอัดลมC", "size": "sm", "color": "#ffffff", "flex": 0},
-                                        {"type": "text", "text": "300", "size": "sm", "color": "#ffffff", "align": "end"}
+                                        {"type": "text", "text": getRows.data.values[3][0], "size": "sm", "color": "#ffffff", "flex": 0},
+                                        {"type": "text", "text": getRows.data.values[3][1], "size": "sm", "color": "#ffffff", "align": "end"}
                                     ]
                                 }
                             ]
@@ -263,7 +261,7 @@ const handleEvent = async (event) => {
             case "stock": 
                 replyLineMessage = msg1  
                 break
-            case "cst":
+            case "ckst":
                 if (args[1]==null) {
                     replyLineMessage = {"type": "text", "text": "โปรดกรอกข้อมูลที่ต้องการค้นหา"}
                     break
@@ -271,8 +269,47 @@ const handleEvent = async (event) => {
                 if (z!=true) replyLineMessage = {"type": "text", "text": "ไม่พบข้อมูลที่ต้องการตรวจสอบ" }
                 else replyLineMessage = msg2 
                 break
+            case "adst":
+                if (t==false){
+                    replyLineMessage = {"type": "text", "text": "มีสินค้านี้อยู่แล้วโปรดใช้ !upst เพื่อเพิ่มข้อมูล"}
+                    break
+                }
+                if (args[1]==null){
+                    replyLineMessage = {"type": "text", "text": "โปรดกรอกข้อมูลที่ต้องการเพิ่ม ตัวอย่างเช่น !adst ชื่อสินค้า จำนวน ราคา"}
+                    break
+                }else if (args[2]==null) {
+                    replyLineMessage = {"type": "text", "text": "โปรดกรอก จำนวน สินค้า"}
+                    break
+                }else if (args[3]==null) {
+                    replyLineMessage = {"type": "text", "text": "โปรดกรอก ราคา สินค้า"}
+                    break
+                }
+                //ใส่ข้อมูลลงแถวของ GS
+                await googleSheets.spreadsheets.values.append({auth, spreadsheetId, range: "data1!A:C", valueInputOption: "USER_ENTERED",
+                    resource: {
+                        values: [[args[1], args[2], args[3]]]
+                    }
+                });
+                replyLineMessage = {"type": "text", "text": "เพิ่มสินค้าลงในคลังเรียบร้อยแล้วจ้า" }
+                break
+            case "upst":
+                if (args[1]==null){
+                    replyLineMessage = {"type": "text", "text": "โปรดกรอกข้อมูลที่ต้องการอัพเดท ตัวอย่างเช่น !upst ชื่อสินค้า จำนวน ราคา"}
+                    break
+                }else if (args[2]==null) {
+                    replyLineMessage = {"type": "text", "text": "โปรดกรอก จำนวน สินค้า"}
+                    break
+                }else if (args[3]==null) {
+                    replyLineMessage = {"type": "text", "text": "โปรดกรอก ราคา สินค้า"}
+                    break
+                }
+                replyLineMessage = {"type": "text", "text": "Error คำสั่งนี้ยังไม่สมบูรณ์" }
+                break
+            case "help":
+                replyLineMessage = {"type": "text", "text": "!stock , !ckst, !adst, !upst"}
+                break
             default:
-                replyLineMessage = {"type": "text", "text": "ไม่พบคำสั่ง"}
+                replyLineMessage = {"type": "text", "text": "ไม่พบคำสั่ง โปรดลองพิม !help เพื่อดูคำสั่ง"}
                 break
         }
 
