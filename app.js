@@ -40,14 +40,14 @@ app.get("/", async (req, res) => {
     //     }
     // });
 
-    let abc = getRows.data.values;
-    let x 
-    for (var i=0;i<abc.length; i++){
-        console.log(getRows.data.values[i])
-        x = getRows.data.values[i]
-    }
+    // let abc = getRows.data.values;
+    // let x 
+    // for (var i=0;i<abc.length; i++){
+    //     console.log(getRows.data.values[i])
+    //     x = getRows.data.values[i]
+    // }
 
-    res.send(x);
+    // res.send(x);
     
 });
 
@@ -135,28 +135,33 @@ const handleEvent = async (event) => {
                         {"type": "separator", "margin": "xxl"},
                         {"type": "box", "layout": "vertical", "margin": "xxl", "spacing": "sm",
                             "contents": [
-                                {"type": "box", "layout": "horizontal",
+                                {
+                                    "type": "box", "layout": "horizontal",
                                     "contents": [
-                                        {"type": "text", "text": "ชื่อสินค้า", "size": "sm", "color": "#ffffff", "flex": 0},
-                                        {"type": "text", "text": "ราคา", "size": "sm", "color": "#ffffff", "align": "end"},
+                                        {"type": "text", "text": "ชื่อสินค้า", "size": "lg", "color": "#ffffff", "weight": "bold", "flex": 0},
+                                        {"type": "text", "text": "ราคา", "size": "lg", "color": "#ffffff", "weight": "bold", "align": "end"},
                                     ],
                                 },
-                                {"type": "box", "layout": "horizontal",
+                                {"type": "separator", "margin": "md", "color": "#121212"},
+                                {
+                                    "type": "box", "layout": "horizontal",
                                     "contents": [
-                                        {"type": "text", "text": "ราคา", "size": "sm", "color": "#ffffff", "flex": 0},
-                                        {"type": "text", "text": "test", "size": "sm", "color": "#ffffff", "align": "end"}
+                                        {"type": "text", "text": "น้ำอัดลมA", "size": "sm", "color": "#ffffff", "flex": 0},
+                                        {"type": "text", "text": "12", "size": "sm", "color": "#ffffff", "align": "end"}
                                     ]
                                 },
-                                {"type": "box", "layout": "horizontal",
+                                {
+                                    "type": "box", "layout": "horizontal",
                                     "contents": [
-                                        {"type": "text", "text": "จำนวน", "size": "sm", "color": "#ffffff", "flex": 0},
-                                        {"type": "text", "text": "test", "size": "sm", "color": "#ffffff", "align": "end"},
+                                        {"type": "text", "text": "น้ำอัดลมB", "size": "sm", "color": "#ffffff", "flex": 0},
+                                        {"type": "text", "text": "10", "size": "sm", "color": "#ffffff", "align": "end"},
                                     ],
                                 },
-                                {"type": "box", "layout": "horizontal",
+                                {
+                                    "type": "box", "layout": "horizontal",
                                     "contents": [
-                                        {"type": "text", "text": "ราคา", "size": "sm", "color": "#ffffff", "flex": 0},
-                                        {"type": "text", "text": "test", "size": "sm", "color": "#ffffff", "align": "end"}
+                                        {"type": "text", "text": "น้ำอัดลมC", "size": "sm", "color": "#ffffff", "flex": 0},
+                                        {"type": "text", "text": "15", "size": "sm", "color": "#ffffff", "align": "end"}
                                     ]
                                 }
                             ]
@@ -171,7 +176,7 @@ const handleEvent = async (event) => {
                                     "type": "button",
                                     "action": {
                                     "type": "uri",
-                                    "label": "link",
+                                    "label": "เพิ่มเติม",
                                     "uri": "https://docs.google.com/spreadsheets/d/1TFMBHX19EVQWgTZIruszDxIlXo5r1Oj4LYsQQTcutlM/"
                                 },
                             "color": "#ffdab9",
@@ -240,7 +245,7 @@ const handleEvent = async (event) => {
                                     "type": "button",
                                     "action": {
                                     "type": "uri",
-                                    "label": "link",
+                                    "label": "รายการอื่น",
                                     "uri": "https://docs.google.com/spreadsheets/d/1TFMBHX19EVQWgTZIruszDxIlXo5r1Oj4LYsQQTcutlM/"
                                 },
                             "color": "#ffdab9",
