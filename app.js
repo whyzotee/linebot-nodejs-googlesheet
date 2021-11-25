@@ -139,7 +139,7 @@ const handleEvent = async (event) => {
                                     "type": "box", "layout": "horizontal",
                                     "contents": [
                                         {"type": "text", "text": "ชื่อสินค้า", "size": "lg", "color": "#ffffff", "weight": "bold", "flex": 0},
-                                        {"type": "text", "text": "ราคา", "size": "lg", "color": "#ffffff", "weight": "bold", "align": "end"},
+                                        {"type": "text", "text": "สต๊อก", "size": "lg", "color": "#ffffff", "weight": "bold", "align": "end"},
                                     ],
                                 },
                                 {"type": "separator", "margin": "md", "color": "#121212"},
@@ -147,21 +147,21 @@ const handleEvent = async (event) => {
                                     "type": "box", "layout": "horizontal",
                                     "contents": [
                                         {"type": "text", "text": "น้ำอัดลมA", "size": "sm", "color": "#ffffff", "flex": 0},
-                                        {"type": "text", "text": "12", "size": "sm", "color": "#ffffff", "align": "end"}
+                                        {"type": "text", "text": "120", "size": "sm", "color": "#ffffff", "align": "end"}
                                     ]
                                 },
                                 {
                                     "type": "box", "layout": "horizontal",
                                     "contents": [
                                         {"type": "text", "text": "น้ำอัดลมB", "size": "sm", "color": "#ffffff", "flex": 0},
-                                        {"type": "text", "text": "10", "size": "sm", "color": "#ffffff", "align": "end"},
+                                        {"type": "text", "text": "210", "size": "sm", "color": "#ffffff", "align": "end"},
                                     ],
                                 },
                                 {
                                     "type": "box", "layout": "horizontal",
                                     "contents": [
                                         {"type": "text", "text": "น้ำอัดลมC", "size": "sm", "color": "#ffffff", "flex": 0},
-                                        {"type": "text", "text": "15", "size": "sm", "color": "#ffffff", "align": "end"}
+                                        {"type": "text", "text": "300", "size": "sm", "color": "#ffffff", "align": "end"}
                                     ]
                                 }
                             ]
