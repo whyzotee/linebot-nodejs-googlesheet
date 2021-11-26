@@ -20,33 +20,6 @@ const auth = new google.auth.GoogleAuth({
     scopes: "https://www.googleapis.com/auth/spreadsheets"
 });
 
-// app.get("/", async (req, res) => {
-//     const authclient = await auth.getClient();
-//     const googleSheets = google.sheets({version: "v4", auth: authclient });
-//     const spreadsheetId = "1TFMBHX19EVQWgTZIruszDxIlXo5r1Oj4LYsQQTcutlM";
-//     const metaData = await googleSheets.spreadsheets.get({auth, spreadsheetId});
-
-//     //get ค่าแถวของ GS
-//     const getRows = await googleSheets.spreadsheets.values.get({auth, spreadsheetId, range: "data1"});
-
-//     let abc = getRows.data.values;
-//     let x,y,z
-//     for (var i=1;i<abc.length; i++){
-//         console.log(getRows.data.values[i])
-//         x = getRows.data.values[i]
-//         y = getRows.data.values[i]
-//         z = 
-//         console.log(x+y+z)
-//     }
-
-//     res.send();
- 
-//     //ใส่ข้อมูลลงแถวของ GS
-//     let data = "test" 
-//     const update = await googleSheets.spreadsheets.values.update({auth, spreadsheetId, range: "data1!A5:B5", valueInputOption: "USER_ENTERED", resource:{"values": data} });
-//     res.send(update);
-// });
-
 // ฟังชั่นหลัก
 app.post('/webhook', line.middleware(lineConfig), async (req, res) => {
     try {
@@ -83,13 +56,16 @@ const handleEvent = async (event) => {
         const cmd = args[0].slice(prefix.length).toLowerCase();       
 
         // ตัวแปลเก็บข้อมูลจาก GS และ เก็บค่าเช็ค
-        let x, y
+        let x, y, sheet
         let z, t = true;
 
         // เช็คข้อมูลว่าตรงกับ GS หรือเปล่า
         for (var i=1;i<getRows.data.values.length; i++){
             if(getRows.data.values[i][0] != args[1]) {
-                z = false;     
+                // เช็คว่ามีข้อมูลอยู่หรือเปล่า
+                z = false;    
+                
+                // เช็คเพิ่มสินค้า
                 t = true;
             }
         }
@@ -100,9 +76,11 @@ const handleEvent = async (event) => {
                 y = getRows.data.values[i][2]
                 z = true; 
                 t = false;   
+                sheet = i;
             }
         }
 
+        console.log(sheet);
         // Message Box สินค้าทั้งหมด
         let msg1 = {
             "type": "flex",
@@ -278,32 +256,46 @@ const handleEvent = async (event) => {
                     replyLineMessage = {"type": "text", "text": "โปรดกรอกข้อมูลที่ต้องการเพิ่ม ตัวอย่างเช่น !adst ชื่อสินค้า จำนวน ราคา"}
                     break
                 }else if (args[2]==null) {
-                    replyLineMessage = {"type": "text", "text": "โปรดกรอก จำนวน สินค้า"}
+                    replyLineMessage = {"type": "text", "text": "โปรดกรอก จำนวน สินค้า ตัวอย่างเช่น !adst ชื่อสินค้า จำนวน ราคา"}
                     break
                 }else if (args[3]==null) {
-                    replyLineMessage = {"type": "text", "text": "โปรดกรอก ราคา สินค้า"}
+                    replyLineMessage = {"type": "text", "text": "โปรดกรอก ราคา สินค้า ตัวอย่างเช่น !adst ชื่อสินค้า จำนวน ราคา"}
                     break
                 }
-                //ใส่ข้อมูลลงแถวของ GS
+
+                // เพิ่มข้อมูลลงแถวของ GS
                 await googleSheets.spreadsheets.values.append({auth, spreadsheetId, range: "data1!A:C", valueInputOption: "USER_ENTERED",
                     resource: {
                         values: [[args[1], args[2], args[3]]]
                     }
                 });
+
                 replyLineMessage = {"type": "text", "text": "เพิ่มสินค้าลงในคลังเรียบร้อยแล้วจ้า" }
                 break
             case "upst":
+                if (z!=true){
+                    replyLineMessage = {"type": "text", "text": "ไม่พบข้อมูลที่ต้องการเพิ่ม"}
+                    break
+                }
                 if (args[1]==null){
                     replyLineMessage = {"type": "text", "text": "โปรดกรอกข้อมูลที่ต้องการอัพเดท ตัวอย่างเช่น !upst ชื่อสินค้า จำนวน ราคา"}
                     break
                 }else if (args[2]==null) {
-                    replyLineMessage = {"type": "text", "text": "โปรดกรอก จำนวน สินค้า"}
+                    replyLineMessage = {"type": "text", "text": "โปรดกรอก จำนวน สินค้า ตัวอย่างเช่น !upst ชื่อสินค้า จำนวน ราคา"}
                     break
                 }else if (args[3]==null) {
-                    replyLineMessage = {"type": "text", "text": "โปรดกรอก ราคา สินค้า"}
+                    replyLineMessage = {"type": "text", "text": "โปรดกรอก ราคา สินค้า ตัวอย่างเช่น !upst ชื่อสินค้า จำนวน ราคา"}
                     break
                 }
-                replyLineMessage = {"type": "text", "text": "Error คำสั่งนี้ยังไม่สมบูรณ์" }
+
+                let updatedata = parseInt(args[2])+parseInt(x);
+                // อัพเดทข้อมูลลงแถวของ GS
+                await googleSheets.spreadsheets.values.update(
+                    {auth, spreadsheetId, range: `data1!A${sheet+1}:C${sheet+1}`, valueInputOption: "USER_ENTERED", 
+                    resource:{range: `data1!A${sheet+1}:C${sheet+1}`, majorDimension: "ROWS", values: [[`${args[1]}`, `${updatedata}`, `${args[3]}`]] }
+                });
+
+                replyLineMessage = {"type": "text", "text": "อัพเดทข้อมูลเรียบร้อยแล้วจ้าาา" }
                 break
             case "help":
                 replyLineMessage = {"type": "text", "text": "!stock , !ckst, !adst, !upst"}
