@@ -48,33 +48,9 @@ const handleEvent = async (event) => {
 
     // เช็คข้อมูล
     if(event.type !== 'message' || event.message.type !== 'text') return null;
-    // พิมหาบอทที่ไม่ใช่ command
-    else if (event.type === 'message' || !event.message.text.startsWith(prefix)) {
-        let msg;
-        let usermsg = ["test", "tot"]
-        let replymsg = ["ต้องการใช้งานบอทหรอครับ?", "หากต้องการใช้งานบอทโปรดพิม !help ครับ", "มีอะไรให้ช่วยไหมครับ >_<"]
-
-        for (let i=0; i < usermsg.length; i++) {
-            if (!event.message.text.includes(usermsg[i])) {
-                check = false;
-            }
-        }
-
-        for (let i=0; i < usermsg.length; i++) {
-            if (event.message.text.includes(usermsg[i])) {
-                msg = replymsg[Math.floor(Math.random()*replymsg.length)];
-                check = true;
-            }
-        }
-
-        if (check == false) {
-            return null;
-        }
-
-        return client.replyMessage(event.replyToken, msg);
-    }
+    
     // เริ่มทำงานในโต้ตอบ
-    else if (event.type === 'message' || event.message.text.startsWith(prefix)) {   
+    else if (event.message.text.startsWith(prefix)) {   
 
         // คำสั่งเรียกใช้งาน 
         const args = event.message.text.trim().split(/ +/g);
@@ -105,89 +81,178 @@ const handleEvent = async (event) => {
             }
         }
         
-        console.log(sheet);
         // Message Box สินค้าทั้งหมด
-        let msg1 = {
+        let msg1 =  
+        {
             "type": "flex",
             "altText": "this is a flex message",
             "contents": {
-                "type": "bubble",
-                "styles": {
-                    "footer": {
-                        "separator": true
+                "type": "carousel",
+                "contents": [{
+                    "type": "bubble",
+                    "styles": {
+                        "footer": {
+                            "separator": true
+                        }
+                    },
+                    "hero": {
+                        "type": "image",
+                        "url": "https://www.somjitpanich.com/wp-content/uploads/2020/06/8996001355923.jpg",
+                        "size": "full",
+                        "aspectRatio": "1.51:1",
+                        "aspectMode": "fit",
+                        "backgroundColor": "#FFFFFF"
+                    },
+                    "body": {
+                        "type": "box",
+                        "layout": "vertical",
+                        "spacing": "md",
+                        "backgroundColor": "#121212",
+                        "contents": [
+                            {"type": "text", "text": "รายการสินค้า", "weight": "bold", "color": "#ffdab9", "size": "sm"},
+                            {"type": "text", "text": "สินค้าทั้งหมด", "weight": "bold", "color": "#ffffff", "size": "xxl", "margin": "md"},
+                            {"type": "separator", "margin": "xxl"},
+                            {"type": "box", "layout": "vertical", "margin": "xxl", "spacing": "sm",
+                                "contents": [
+                                    {
+                                        "type": "box", "layout": "horizontal",
+                                        "contents": [
+                                            {"type": "text", "text": "ชื่อสินค้า", "size": "lg", "color": "#ffffff", "weight": "bold", "align": "start"},
+                                            {"type": "text", "text": "สต๊อก", "size": "lg", "color": "#ffffff", "weight": "bold", "align": "center"},
+                                            {"type": "text", "text": "ราคา", "size": "lg", "color": "#ffffff", "weight": "bold", "align": "end"}
+                                        ],
+                                    },
+                                    {"type": "separator", "margin": "md", "color": "#121212"},
+                                    {
+                                        "type": "box", "layout": "horizontal",
+                                        "contents": [
+                                            {"type": "text", "text": getRows.data.values[1][0], "size": "sm", "color": "#ffffff", "align": "start"},
+                                            {"type": "text", "text": getRows.data.values[1][1], "size": "sm", "color": "#ffffff", "align": "center"},
+                                            {"type": "text", "text": getRows.data.values[1][2], "size": "sm", "color": "#ffffff", "align": "end"}
+                                        ]
+                                    },
+                                    {
+                                        "type": "box", "layout": "horizontal",
+                                        "contents": [
+                                            {"type": "text", "text": getRows.data.values[2][0], "size": "sm", "color": "#ffffff", "align": "start"},
+                                            {"type": "text", "text": getRows.data.values[2][1], "size": "sm", "color": "#ffffff", "align": "center"},
+                                            {"type": "text", "text": getRows.data.values[2][2], "size": "sm", "color": "#ffffff", "align": "end"}
+                                        ],
+                                    },
+                                    {
+                                        "type": "box", "layout": "horizontal",
+                                        "contents": [
+                                            {"type": "text", "text": getRows.data.values[3][0], "size": "sm", "color": "#ffffff", "align": "start"},
+                                            {"type": "text", "text": getRows.data.values[3][1], "size": "sm", "color": "#ffffff", "align": "center"},
+                                            {"type": "text", "text": getRows.data.values[3][2], "size": "sm", "color": "#ffffff", "align": "end"}
+                                        ]
+                                    },
+                                    {
+                                        "type": "box", "layout": "horizontal",
+                                        "contents": [
+                                            {"type": "text", "text": getRows.data.values[4][0], "size": "sm", "color": "#ffffff", "align": "start"},
+                                            {"type": "text", "text": getRows.data.values[4][1], "size": "sm", "color": "#ffffff", "align": "center"},
+                                            {"type": "text", "text": getRows.data.values[4][2], "size": "sm", "color": "#ffffff", "align": "end"}
+                                        ]
+                                    },
+                                    {
+                                        "type": "box", "layout": "horizontal",
+                                        "contents": [
+                                            {"type": "text", "text": getRows.data.values[5][0], "size": "sm", "color": "#ffffff", "align": "start"},
+                                            {"type": "text", "text": getRows.data.values[5][1], "size": "sm", "color": "#ffffff", "align": "center"},
+                                            {"type": "text", "text": getRows.data.values[5][2], "size": "sm", "color": "#ffffff", "align": "end"}
+                                        ]
+                                    }
+                                ]
+                            }
+                        ]
                     }
                 },
-                "hero": {
-                    "type": "image",
-                    "url": "https://i.pinimg.com/564x/c8/55/ae/c855aea64c62ef90a746df8d1670b017.jpg",
-                    "size": "full",
-                    "aspectRatio": "1.51:1",
-                    "aspectMode": "fit",
-                    "backgroundColor": "#000000FF"
-                },
-                "body": {
-                    "type": "box",
-                    "layout": "vertical",
-                    "spacing": "md",
-                    "backgroundColor": "#121212",
-                    "contents": [
-                        {"type": "text", "text": "รายการสินค้า", "weight": "bold", "color": "#ffdab9", "size": "sm"},
-                        {"type": "text", "text": "สินค้าทั้งหมด", "weight": "bold", "color": "#ffffff", "size": "xxl", "margin": "md"},
-                        {"type": "separator", "margin": "xxl"},
-                        {"type": "box", "layout": "vertical", "margin": "xxl", "spacing": "sm",
-                            "contents": [
-                                {
-                                    "type": "box", "layout": "horizontal",
-                                    "contents": [
-                                        {"type": "text", "text": "ชื่อสินค้า", "size": "lg", "color": "#ffffff", "weight": "bold", "flex": 0},
-                                        {"type": "text", "text": "สต๊อก", "size": "lg", "color": "#ffffff", "weight": "bold", "align": "end"},
-                                    ],
-                                },
-                                {"type": "separator", "margin": "md", "color": "#121212"},
-                                {
-                                    "type": "box", "layout": "horizontal",
-                                    "contents": [
-                                        {"type": "text", "text": getRows.data.values[1][0], "size": "sm", "color": "#ffffff", "flex": 0},
-                                        {"type": "text", "text": getRows.data.values[1][1], "size": "sm", "color": "#ffffff", "align": "end"}
-                                    ]
-                                },
-                                {
-                                    "type": "box", "layout": "horizontal",
-                                    "contents": [
-                                        {"type": "text", "text": getRows.data.values[2][0], "size": "sm", "color": "#ffffff", "flex": 0},
-                                        {"type": "text", "text": getRows.data.values[2][1], "size": "sm", "color": "#ffffff", "align": "end"},
-                                    ],
-                                },
-                                {
-                                    "type": "box", "layout": "horizontal",
-                                    "contents": [
-                                        {"type": "text", "text": getRows.data.values[3][0], "size": "sm", "color": "#ffffff", "flex": 0},
-                                        {"type": "text", "text": getRows.data.values[3][1], "size": "sm", "color": "#ffffff", "align": "end"}
-                                    ]
-                                }
-                            ]
-                        },
-                        {
-                            "type": "box",
-                            "layout": "vertical",
-                            "flex": 0,
-                            "spacing": "sm",
-                            "contents": [
-                                {
-                                    "type": "button",
-                                    "action": {
-                                    "type": "uri",
-                                    "label": "เพิ่มเติม",
-                                    "uri": "https://docs.google.com/spreadsheets/d/1TFMBHX19EVQWgTZIruszDxIlXo5r1Oj4LYsQQTcutlM/"
-                                },
-                            "color": "#ffdab9",
-                            "height": "md",
-                            "style": "secondary"
-                            }]
+                // กล่องข้อความที่2
+                {
+                    "type": "bubble",
+                    "styles": {
+                        "footer": {
+                            "separator": true
                         }
-                    ]
-                },
-            }
+                    },
+                    "hero": {
+                        "type": "image",
+                        "url": "https://ocs-k8s-prod.s3.ap-southeast-1.amazonaws.com/product/302107.jpg",
+                        "size": "full",
+                        "aspectRatio": "1.51:1",
+                        "aspectMode": "fit",
+                        "backgroundColor": "#FFFFFF"
+                    },
+                    "body": {
+                        "type": "box",
+                        "layout": "vertical",
+                        "spacing": "md",
+                        "backgroundColor": "#121212",
+                        "contents": [
+                            {"type": "text", "text": "รายการสินค้า", "weight": "bold", "color": "#ffdab9", "size": "sm"},
+                            {"type": "text", "text": "หน้า 2", "weight": "bold", "color": "#ffffff", "size": "xxl"},
+                            {"type": "separator", "margin": "xxl"},
+                            {"type": "box", "layout": "vertical", "margin": "xxl", "spacing": "sm",
+                                "contents": [
+                                    //{"type": "separator", "margin": "md", "color": "#121212"},
+                                    {
+                                        "type": "box", "layout": "horizontal",
+                                        "contents": [
+                                            {"type": "text", "text": getRows.data.values[6][0], "size": "sm", "color": "#ffffff", "align": "start"},
+                                            {"type": "text", "text": getRows.data.values[6][1], "size": "sm", "color": "#ffffff", "align": "center"},
+                                            {"type": "text", "text": getRows.data.values[6][2], "size": "sm", "color": "#ffffff", "align": "end"}
+                                        ]
+                                    },
+                                    {
+                                        "type": "box", "layout": "horizontal",
+                                        "contents": [
+                                            {"type": "text", "text": getRows.data.values[7][0], "size": "sm", "color": "#ffffff", "align": "start"},
+                                            {"type": "text", "text": getRows.data.values[7][1], "size": "sm", "color": "#ffffff", "align": "center"},
+                                            {"type": "text", "text": getRows.data.values[7][2], "size": "sm", "color": "#ffffff", "align": "end"}
+                                        ],
+                                    },
+                                    {
+                                        "type": "box", "layout": "horizontal",
+                                        "contents": [
+                                            {"type": "text", "text": getRows.data.values[8][0], "size": "sm", "color": "#ffffff", "align": "start"},
+                                            {"type": "text", "text": getRows.data.values[8][1], "size": "sm", "color": "#ffffff", "align": "center"},
+                                            {"type": "text", "text": getRows.data.values[8][2], "size": "sm", "color": "#ffffff", "align": "end"}
+                                        ]
+                                    },
+                                    {
+                                        "type": "box", "layout": "horizontal",
+                                        "contents": [
+                                            {"type": "text", "text": getRows.data.values[9][0], "size": "sm", "color": "#ffffff", "align": "start"},
+                                            {"type": "text", "text": getRows.data.values[9][1], "size": "sm", "color": "#ffffff", "align": "center"},
+                                            {"type": "text", "text": getRows.data.values[9][2], "size": "sm", "color": "#ffffff", "align": "end"}
+                                        ]
+                                    }
+                                ]
+                            },
+                            {
+                                "type": "box",
+                                "layout": "vertical",
+                                "flex": 0,
+                                "spacing": "sm",
+                                "contents": [
+                                    {
+                                        "type": "button",
+                                        "action": {
+                                        "type": "uri",
+                                        "label": "เพิ่มเติม",
+                                        "uri": "https://docs.google.com/spreadsheets/d/1TFMBHX19EVQWgTZIruszDxIlXo5r1Oj4LYsQQTcutlM/"
+                                    },
+                                "color": "#ffdab9",
+                                "height": "md",
+                                "style": "secondary"
+                                }]
+                            }
+                        ]
+                    }
+                }
+            ]
+            },           
         } 
 
         // Message Box สินค้าแต่ละชิ้น
@@ -332,6 +397,45 @@ const handleEvent = async (event) => {
 
         // ส่งข้อมูลกลับไปยังฟังชั่นหลัก
         return client.replyMessage(event.replyToken, replyLineMessage);
+
+    // พิมหาบอทที่ไม่ใช่ command
+    } else {
+        let msg;
+        let usermsg = ["มี", "ใช่"]
+        let replymsgX = ["ต้องการใช้งานบอทหรอครับ? (โปรดพิม ใช่ ถ้าต้องการใช้งานครับ)", "มีอะไรให้ช่วยไหมครับ >_< (โปรดพิม มี ถ้าต้องการใช้งานครับ)"]
+        let replymsgY = ["โปรดพิม !help ครับ", "พิม !help ดูสิ!", "พิม !help เพื่อดูคำสั่งครับ"]
+
+        for (let i=0; i < usermsg.length; i++) {
+            if (!event.message.text.includes(usermsg[i])) {
+                check = false;
+            }
+        }
+
+        for (let i=0; i < usermsg.length; i++) {
+            if (event.message.text.includes(usermsg[i])) {
+                msg = {"type": "text", "text": replymsgY[Math.floor(Math.random()*replymsgY.length)] };
+                check = true;
+            }
+        }
+
+        if (check == false) {
+            switch (event.message.text) {
+                case "สีเหลือง" :
+                    msg = {"type": "text", "text": "Yellow!"};
+                    break
+                case "มะม่วง" :
+                    msg = {"type": "text", "text": "Mango!"};
+                    break
+                 case "ห้ะ" :
+                    msg = {"type": "text", "text": "ห้ะ!"};
+                    break
+                default :
+                    msg = {"type": "text", "text": replymsgX[Math.floor(Math.random()*replymsgX.length)] };
+                    break
+            }  
+        }
+
+        return client.replyMessage(event.replyToken, msg);
     }
 }
 const PORT = process.env.PORT || 3000;
