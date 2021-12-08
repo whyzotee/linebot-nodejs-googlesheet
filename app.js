@@ -23,15 +23,15 @@ const auth = new google.auth.GoogleAuth({
 // ฟังชั่นหลัก
 app.post('/webhook', line.middleware(lineConfig), async (req, res, next) => {
     try {
-        const events = req.body.events;
+        const events = req.body.events
         //console.log('event', events);
-        console.log(`User Input: ${events.message.text}`);
-        events.length > 0 ? await events.map(item => handleEvent(item)) : res.status(200).send("OK");
+        console.log('User Input :', events.message.text)
+        events.length > 0 ? await events.map(item => handleEvent(item)) : res.status(200).send("OK")
 
-        if (req.session.user) return next(); 
+        if (req.session.user) return next();
         return next(new NotAuthorizedError());
     } catch (e) {
-        res.status(500).end();
+        res.status(500).end()
     }
 });
 
