@@ -47,9 +47,34 @@ const handleEvent = async (event) => {
     const getRows = await googleSheets.spreadsheets.values.get({auth, spreadsheetId, range: "data1"});
 
     // เช็คข้อมูล
-    if(event.type !== 'message' || event.message.type !== 'text' || !event.message.text.startsWith(prefix)) return null;
+    if(event.type !== 'message' || event.message.type !== 'text') return null;
+    // พิมหาบอทที่ไม่ใช่ command
+    else if (event.type === 'message' || !event.message.text.startsWith(prefix)) {
+        let msg;
+        let usermsg = ["test", "tot"]
+        let replymsg = ["ต้องการใช้งานบอทหรอครับ?", "หากต้องการใช้งานบอทโปรดพิม !help ครับ", "มีอะไรให้ช่วยไหมครับ >_<"]
+
+        for (let i=0; i < usermsg.length; i++) {
+            if (!event.message.text.includes(usermsg[i])) {
+                check = false;
+            }
+        }
+
+        for (let i=0; i < usermsg.length; i++) {
+            if (event.message.text.includes(usermsg[i])) {
+                msg = replymsg[Math.floor(Math.random()*replymsg.length)];
+                check = true;
+            }
+        }
+
+        if (check == false) {
+            return null;
+        }
+
+        return client.replyMessage(event.replyToken, msg);
+    }
     // เริ่มทำงานในโต้ตอบ
-    else if (event.type === 'message') {   
+    else if (event.type === 'message' || event.message.text.startsWith(prefix)) {   
 
         // คำสั่งเรียกใช้งาน 
         const args = event.message.text.trim().split(/ +/g);
@@ -79,7 +104,7 @@ const handleEvent = async (event) => {
                 sheet = i;
             }
         }
-
+        
         console.log(sheet);
         // Message Box สินค้าทั้งหมด
         let msg1 = {
@@ -237,19 +262,19 @@ const handleEvent = async (event) => {
         // เริ่มคำสั่ง
         switch (cmd){
             case "stock": 
-                replyLineMessage = msg1  
+                replyLineMessage = msg1
                 break
             case "ckst":
                 if (args[1]==null) {
-                    replyLineMessage = {"type": "text", "text": "โปรดกรอกข้อมูลที่ต้องการค้นหา"}
+                    replyLineMessage = {"type": "text", "text": "โปรดกรอกข้อมูลที่ต้องการค้นหาครับ"}
                     break
                 }
-                if (z!=true) replyLineMessage = {"type": "text", "text": "ไม่พบข้อมูลที่ต้องการตรวจสอบ" }
-                else replyLineMessage = msg2 
+                if (z!=true) replyLineMessage = {"type": "text", "text": "ไม่พบข้อมูลที่ต้องการตรวจสอบครับ" }
+                else replyLineMessage = msg2
                 break
             case "adst":
                 if (t==false){
-                    replyLineMessage = {"type": "text", "text": "มีสินค้านี้อยู่แล้วโปรดใช้ !upst เพื่อเพิ่มข้อมูล"}
+                    replyLineMessage = {"type": "text", "text": "มีสินค้านี้อยู่แล้วโปรดใช้ !upst เพื่อเพิ่มข้อมูลครับ"}
                     break
                 }
                 if (args[1]==null){
@@ -270,11 +295,11 @@ const handleEvent = async (event) => {
                     }
                 });
 
-                replyLineMessage = {"type": "text", "text": "เพิ่มสินค้าลงในคลังเรียบร้อยแล้วจ้า" }
+                replyLineMessage = {"type": "text", "text": "เพิ่มสินค้าลงในคลังเรียบร้อยแล้วค้าบ >_<" }
                 break
             case "upst":
                 if (z!=true){
-                    replyLineMessage = {"type": "text", "text": "ไม่พบข้อมูลที่ต้องการเพิ่ม"}
+                    replyLineMessage = {"type": "text", "text": "ไม่พบข้อมูลที่ต้องการเพิ่มครับ"}
                     break
                 }
                 if (args[1]==null){
@@ -295,18 +320,18 @@ const handleEvent = async (event) => {
                     resource:{range: `data1!A${sheet+1}:C${sheet+1}`, majorDimension: "ROWS", values: [[`${args[1]}`, `${updatedata}`, `${args[3]}`]] }
                 });
 
-                replyLineMessage = {"type": "text", "text": "อัพเดทข้อมูลเรียบร้อยแล้วจ้าาา" }
+                replyLineMessage = {"type": "text", "text": "อัพเดทข้อมูลเรียบร้อยแล้วค้าบบบ" }
                 break
             case "help":
                 replyLineMessage = {"type": "text", "text": "!stock , !ckst, !adst, !upst"}
                 break
             default:
-                replyLineMessage = {"type": "text", "text": "ไม่พบคำสั่ง โปรดลองพิม !help เพื่อดูคำสั่ง"}
+                replyLineMessage = {"type": "text", "text": "ไม่พบคำสั่ง โปรดลองพิม !help เพื่อดูคำสั่งครับ"}
                 break
         }
 
         // ส่งข้อมูลกลับไปยังฟังชั่นหลัก
-        return client.replyMessage(event.replyToken, replyLineMessage)
+        return client.replyMessage(event.replyToken, replyLineMessage);
     }
 }
 const PORT = process.env.PORT || 3000;
@@ -314,7 +339,7 @@ const PORT = process.env.PORT || 3000;
 //รันบน localhost
 
 // app.listen(4000, () => {
-//     console.log(`listening on 4000`)
+//     console.log(`listening on 4000`);
 // })
 
 // รันบน server
