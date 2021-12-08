@@ -25,10 +25,10 @@ app.post('/webhook', line.middleware(lineConfig), async (req, res, next) => {
     try {
         const events = req.body.events
         console.log('event', events)
-        
+        events.length > 0 ? await events.map(item => handleEvent(item)) : res.status(200).send("OK");
+
         if (req.session.user) return next(); 
-        next(new NotAuthorizedError());
-        return events.length > 0 ? await events.map(item => handleEvent(item)) : res.status(200).send("OK")
+        return next(new NotAuthorizedError());
     } catch (e) {
         res.status(500).end()
     }
