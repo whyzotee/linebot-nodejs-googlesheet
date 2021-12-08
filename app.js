@@ -340,11 +340,11 @@ const PORT = process.env.PORT || 3000;
 
 // app.listen(4000, () => {
 //     console.log(`listening on 4000`);
-// })
+// });
 
 // รันบน server
 
 app.listen(PORT, () => {
     console.log(PORT);
     console.log(`listening on Port ${PORT}`);
-})
+});
