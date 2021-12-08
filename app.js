@@ -24,8 +24,7 @@ const auth = new google.auth.GoogleAuth({
 app.post('/webhook', line.middleware(lineConfig), async (req, res, next) => {
     try {
         const events = req.body.events
-        //console.log('event', events);
-        console.log('User Input :', events.message.text)
+        console.log('event', events);
         events.length > 0 ? await events.map(item => handleEvent(item)) : res.status(200).send("OK")
 
         if (req.session.user) return next();
