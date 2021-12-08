@@ -21,10 +21,13 @@ const auth = new google.auth.GoogleAuth({
 });
 
 // ฟังชั่นหลัก
-app.post('/webhook', line.middleware(lineConfig), async (req, res) => {
+app.post('/webhook', line.middleware(lineConfig), async (req, res, next) => {
     try {
         const events = req.body.events
         console.log('event', events)
+        
+        if (req.session.user) return next(); 
+        next(new NotAuthorizedError());
         return events.length > 0 ? await events.map(item => handleEvent(item)) : res.status(200).send("OK")
     } catch (e) {
         res.status(500).end()
