@@ -91,14 +91,14 @@ const handleEvent = async (event) => {
         // ส่งข้อมูลไปเก็บไว้ใน ไฟล์ JSON
         let num1 = 1;
         let num2 = 0;
-        for (let i = 0; i < 5; i++) {
+        for (var i = 0; i < 5; i++) {
             num1+=1
             num2+=1
             message.msg1.contents.contents[0].body.contents[3].contents[num1].contents[0].text = getRows.data.values[num2][0];
             message.msg1.contents.contents[0].body.contents[3].contents[num1].contents[1].text = getRows.data.values[num2][1];
             message.msg1.contents.contents[0].body.contents[3].contents[num1].contents[2].text = getRows.data.values[num2][2];
         }
-        for (let i = 0; i < 4; i++) {
+        for (var i = 0; i < 4; i++) {
             num2+=1
             message.msg1.contents.contents[1].body.contents[3].contents[i].contents[0].text = getRows.data.values[num2][0];
             message.msg1.contents.contents[1].body.contents[3].contents[i].contents[1].text = getRows.data.values[num2][1];
@@ -115,25 +115,25 @@ const handleEvent = async (event) => {
                 replyLineMessage = message.msg1
                 break
             case "ckst":
-                if (args[1]==null) {
+                if (args[1] == null) {
                     replyLineMessage = {"type": "text", "text": "โปรดกรอกข้อมูลที่ต้องการค้นหาครับ"}
                     break
                 }
-                if (checkitem!=true) replyLineMessage = {"type": "text", "text": "ไม่พบข้อมูลที่ต้องการตรวจสอบครับ" }
+                if (checkitem != true) replyLineMessage = {"type": "text", "text": "ไม่พบข้อมูลที่ต้องการตรวจสอบครับ" }
                 else replyLineMessage = message.msg2
                 break
             case "adst":
-                if (checkitem==true){
+                if (checkitem == true){
                     replyLineMessage = {"type": "text", "text": "มีสินค้านี้อยู่แล้วโปรดใช้ !upst เพื่อเพิ่มข้อมูลครับ"}
                     break
                 }
-                if (args[1]==null){
+                if (args[1] == null){
                     replyLineMessage = {"type": "text", "text": "โปรดกรอกข้อมูลที่ต้องการเพิ่ม ตัวอย่างเช่น !adst ชื่อสินค้า จำนวน ราคา"}
                     break
-                }else if (args[2]==null) {
+                }else if (args[2] == null) {
                     replyLineMessage = {"type": "text", "text": "โปรดกรอก จำนวน สินค้า ตัวอย่างเช่น !adst ชื่อสินค้า จำนวน ราคา"}
                     break
-                }else if (args[3]==null) {
+                }else if (args[3] == null) {
                     replyLineMessage = {"type": "text", "text": "โปรดกรอก ราคา สินค้า ตัวอย่างเช่น !adst ชื่อสินค้า จำนวน ราคา"}
                     break
                 }
@@ -148,17 +148,17 @@ const handleEvent = async (event) => {
                 replyLineMessage = {"type": "text", "text": "เพิ่มสินค้าลงในคลังเรียบร้อยแล้วค้าบ >_<" }
                 break
             case "upst":
-                if (checkitem!=true){
+                if (checkitem != true){
                     replyLineMessage = {"type": "text", "text": "ไม่พบข้อมูลที่ต้องการเพิ่มครับ"}
                     break
                 }
-                if (args[1]==null){
+                if (args[1] == null){
                     replyLineMessage = {"type": "text", "text": "โปรดกรอกข้อมูลที่ต้องการอัพเดท ตัวอย่างเช่น !upst ชื่อสินค้า จำนวน ราคา"}
                     break
-                }else if (args[2]==null) {
+                }else if (args[2] == null) {
                     replyLineMessage = {"type": "text", "text": "โปรดกรอก จำนวน สินค้า ตัวอย่างเช่น !upst ชื่อสินค้า จำนวน ราคา"}
                     break
-                }else if (args[3]==null) {
+                }else if (args[3] == null) {
                     replyLineMessage = {"type": "text", "text": "โปรดกรอก ราคา สินค้า ตัวอย่างเช่น !upst ชื่อสินค้า จำนวน ราคา"}
                     break
                 }
@@ -183,22 +183,23 @@ const handleEvent = async (event) => {
         // ส่งข้อมูลกลับไปยังฟังชั่นหลัก
         return client.replyMessage(event.replyToken, replyLineMessage);
 
-    // พิมหาบอทที่ไม่ใช่ command หรือ Prefix
+    // พิมหาบอทที่ไม่ใช่ command
     } else {
-        let msg;
+
+        // array คำที่ผู้ใช้งานพิมจะตอบกลับเป็นข้อความแบบสุ่ม
         let usermsg = ["มี", "ใช่"]
         let replymsgX = ["ต้องการใช้งานบอทหรอครับ? (โปรดพิม ใช่ ถ้าต้องการใช้งานครับ)", "มีอะไรให้ช่วยไหมครับ >_< (โปรดพิม มี ถ้าต้องการใช้งานครับ)"]
         let replymsgY = ["โปรดพิม !help ครับ", "พิม !help ดูสิ!", "พิม !help เพื่อดูคำสั่งครับ"]
 
-        for (let i=0; i < usermsg.length; i++) {
+        for (var i=0; i < usermsg.length; i++) {
             if (!event.message.text.includes(usermsg[i])) {
                 check = false;
             }
         }
 
-        for (let i=0; i < usermsg.length; i++) {
+        for (var i=0; i < usermsg.length; i++) {
             if (event.message.text.includes(usermsg[i])) {
-                msg = {"type": "text", "text": replymsgY[Math.floor(Math.random()*replymsgY.length)] };
+                replyLineMessage = {"type": "text", "text": replymsgY[Math.floor(Math.random()*replymsgY.length)] };
                 check = true;
             }
         }
@@ -206,26 +207,26 @@ const handleEvent = async (event) => {
         if (check == false) {
             switch (event.message.text) {
                 case "สีเหลือง" :
-                    msg = {"type": "text", "text": "Yellow!"};
+                    replyLineMessage = {"type": "text", "text": "Yellow!"};
                     break
                 case "มะม่วง" :
-                    msg = {"type": "text", "text": "Mango!"};
+                    replyLineMessage = {"type": "text", "text": "Mango!"};
                     break
                  case "ห้ะ" :
-                    msg = {"type": "text", "text": "ห้ะ!"};
+                    replyLineMessage = {"type": "text", "text": "ห้ะ!"};
                     break
                 default :
-                    msg = {"type": "text", "text": replymsgX[Math.floor(Math.random()*replymsgX.length)] };
+                replyLineMessage = {"type": "text", "text": replymsgX[Math.floor(Math.random()*replymsgX.length)] };
                     break
             }  
         }
 
-        return client.replyMessage(event.replyToken, msg);
+        return client.replyMessage(event.replyToken, replyLineMessage);
     }
 }
 const PORT = process.env.PORT || 3000;
 
-// รันบน localhost
+//รันบน localhost
 
 // app.listen(4000, () => {
 //     console.log(`listening on 4000`);
