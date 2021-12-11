@@ -112,25 +112,25 @@ const handleEvent = async (event) => {
                 replyLineMessage = message.msg1
                 break
             case "ckst":
-                if (args[1]==null) {
+                if (args[1] == null) {
                     replyLineMessage = {"type": "text", "text": "โปรดกรอกข้อมูลที่ต้องการค้นหาครับ"}
                     break
                 }
-                if (checkitem!=true) replyLineMessage = {"type": "text", "text": "ไม่พบข้อมูลที่ต้องการตรวจสอบครับ" }
+                if (checkitem != true) replyLineMessage = {"type": "text", "text": "ไม่พบข้อมูลที่ต้องการตรวจสอบครับ" }
                 else replyLineMessage = message.msg2
                 break
             case "adst":
-                if (checkitem==true){
+                if (checkitem == true){
                     replyLineMessage = {"type": "text", "text": "มีสินค้านี้อยู่แล้วโปรดใช้ !upst เพื่อเพิ่มข้อมูลครับ"}
                     break
                 }
-                if (args[1]==null){
+                if (args[1] == null){
                     replyLineMessage = {"type": "text", "text": "โปรดกรอกข้อมูลที่ต้องการเพิ่ม ตัวอย่างเช่น !adst ชื่อสินค้า จำนวน ราคา"}
                     break
-                }else if (args[2]==null) {
+                }else if (args[2] == null) {
                     replyLineMessage = {"type": "text", "text": "โปรดกรอก จำนวน สินค้า ตัวอย่างเช่น !adst ชื่อสินค้า จำนวน ราคา"}
                     break
-                }else if (args[3]==null) {
+                }else if (args[3] == null) {
                     replyLineMessage = {"type": "text", "text": "โปรดกรอก ราคา สินค้า ตัวอย่างเช่น !adst ชื่อสินค้า จำนวน ราคา"}
                     break
                 }
@@ -145,17 +145,17 @@ const handleEvent = async (event) => {
                 replyLineMessage = {"type": "text", "text": "เพิ่มสินค้าลงในคลังเรียบร้อยแล้วค้าบ >_<" }
                 break
             case "upst":
-                if (checkitem!=true){
+                if (checkitem != true){
                     replyLineMessage = {"type": "text", "text": "ไม่พบข้อมูลที่ต้องการเพิ่มครับ"}
                     break
                 }
-                if (args[1]==null){
+                if (args[1] == null){
                     replyLineMessage = {"type": "text", "text": "โปรดกรอกข้อมูลที่ต้องการอัพเดท ตัวอย่างเช่น !upst ชื่อสินค้า จำนวน ราคา"}
                     break
-                }else if (args[2]==null) {
+                }else if (args[2] == null) {
                     replyLineMessage = {"type": "text", "text": "โปรดกรอก จำนวน สินค้า ตัวอย่างเช่น !upst ชื่อสินค้า จำนวน ราคา"}
                     break
-                }else if (args[3]==null) {
+                }else if (args[3] == null) {
                     replyLineMessage = {"type": "text", "text": "โปรดกรอก ราคา สินค้า ตัวอย่างเช่น !upst ชื่อสินค้า จำนวน ราคา"}
                     break
                 }
