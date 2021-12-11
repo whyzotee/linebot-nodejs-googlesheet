@@ -1,0 +1,613 @@
+{
+    "msg1": {
+        "type": "flex",
+        "altText": "this is a flex message",
+        "contents": {
+            "type": "carousel",
+            "contents": [
+                {
+                    "type": "bubble",
+                    "styles": {
+                        "footer": {
+                            "separator": true
+                        }
+                    },
+                    "hero": {
+                        "type": "image",
+                        "url": "https://www.somjitpanich.com/wp-content/uploads/2020/06/8996001355923.jpg",
+                        "size": "full",
+                        "aspectRatio": "1.51:1",
+                        "aspectMode": "fit",
+                        "backgroundColor": "#FFFFFF"
+                    },
+                    "body": {
+                        "type": "box",
+                        "layout": "vertical",
+                        "spacing": "md",
+                        "backgroundColor": "#121212",
+                        "contents": [
+                            {
+                                "type": "text",
+                                "text": "รายการสินค้า",
+                                "weight": "bold",
+                                "color": "#ffdab9",
+                                "size": "sm"
+                            },
+                            {
+                                "type": "text",
+                                "text": "สินค้าทั้งหมด",
+                                "weight": "bold",
+                                "color": "#ffffff",
+                                "size": "xxl",
+                                "margin": "md"
+                            },
+                            {
+                                "type": "separator",
+                                "margin": "xxl"
+                            },
+                            {
+                                "type": "box",
+                                "layout": "vertical",
+                                "margin": "xxl",
+                                "spacing": "sm",
+                                "contents": [
+                                    {
+                                        "type": "box",
+                                        "layout": "horizontal",
+                                        "contents": [
+                                            {
+                                                "type": "text",
+                                                "text": "ชื่อสินค้า",
+                                                "size": "lg",
+                                                "color": "#ffffff",
+                                                "weight": "bold",
+                                                "align": "start"
+                                            },
+                                            {
+                                                "type": "text",
+                                                "text": "สต๊อก",
+                                                "size": "lg",
+                                                "color": "#ffffff",
+                                                "weight": "bold",
+                                                "align": "center"
+                                            },
+                                            {
+                                                "type": "text",
+                                                "text": "ราคา",
+                                                "size": "lg",
+                                                "color": "#ffffff",
+                                                "weight": "bold",
+                                                "align": "end"
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "separator",
+                                        "margin": "md",
+                                        "color": "#121212"
+                                    },
+                                    {
+                                        "type": "box",
+                                        "layout": "horizontal",
+                                        "contents": [
+                                            {
+                                                "type": "text",
+                                                "text": "",
+                                                "size": "sm",
+                                                "color": "#ffffff",
+                                                "align": "start"
+                                            },
+                                            {
+                                                "type": "text",
+                                                "text": "",
+                                                "size": "sm",
+                                                "color": "#ffffff",
+                                                "align": "center"
+                                            },
+                                            {
+                                                "type": "text",
+                                                "text": "",
+                                                "size": "sm",
+                                                "color": "#ffffff",
+                                                "align": "end"
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "box",
+                                        "layout": "horizontal",
+                                        "contents": [
+                                            {
+                                                "type": "text",
+                                                "text": "",
+                                                "size": "sm",
+                                                "color": "#ffffff",
+                                                "align": "start"
+                                            },
+                                            {
+                                                "type": "text",
+                                                "text": "",
+                                                "size": "sm",
+                                                "color": "#ffffff",
+                                                "align": "center"
+                                            },
+                                            {
+                                                "type": "text",
+                                                "text": "",
+                                                "size": "sm",
+                                                "color": "#ffffff",
+                                                "align": "end"
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "box",
+                                        "layout": "horizontal",
+                                        "contents": [
+                                            {
+                                                "type": "text",
+                                                "text": "",
+                                                "size": "sm",
+                                                "color": "#ffffff",
+                                                "align": "start"
+                                            },
+                                            {
+                                                "type": "text",
+                                                "text": "",
+                                                "size": "sm",
+                                                "color": "#ffffff",
+                                                "align": "center"
+                                            },
+                                            {
+                                                "type": "text",
+                                                "text": "",
+                                                "size": "sm",
+                                                "color": "#ffffff",
+                                                "align": "end"
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "box",
+                                        "layout": "horizontal",
+                                        "contents": [
+                                            {
+                                                "type": "text",
+                                                "text": "",
+                                                "size": "sm",
+                                                "color": "#ffffff",
+                                                "align": "start"
+                                            },
+                                            {
+                                                "type": "text",
+                                                "text": "",
+                                                "size": "sm",
+                                                "color": "#ffffff",
+                                                "align": "center"
+                                            },
+                                            {
+                                                "type": "text",
+                                                "text": "",
+                                                "size": "sm",
+                                                "color": "#ffffff",
+                                                "align": "end"
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "box",
+                                        "layout": "horizontal",
+                                        "contents": [
+                                            {
+                                                "type": "text",
+                                                "text": "",
+                                                "size": "sm",
+                                                "color": "#ffffff",
+                                                "align": "start"
+                                            },
+                                            {
+                                                "type": "text",
+                                                "text": "",
+                                                "size": "sm",
+                                                "color": "#ffffff",
+                                                "align": "center"
+                                            },
+                                            {
+                                                "type": "text",
+                                                "text": "",
+                                                "size": "sm",
+                                                "color": "#ffffff",
+                                                "align": "end"
+                                            }
+                                        ]
+                                    }
+                                ]
+                            }
+                        ]
+                    }
+                },
+                {
+                    "type": "bubble",
+                    "styles": {
+                        "footer": {
+                            "separator": true
+                        }
+                    },
+                    "hero": {
+                        "type": "image",
+                        "url": "https://ocs-k8s-prod.s3.ap-southeast-1.amazonaws.com/product/302107.jpg",
+                        "size": "full",
+                        "aspectRatio": "1.51:1",
+                        "aspectMode": "fit",
+                        "backgroundColor": "#FFFFFF"
+                    },
+                    "body": {
+                        "type": "box",
+                        "layout": "vertical",
+                        "spacing": "md",
+                        "backgroundColor": "#121212",
+                        "contents": [
+                            {
+                                "type": "text",
+                                "text": "รายการสินค้า",
+                                "weight": "bold",
+                                "color": "#ffdab9",
+                                "size": "sm"
+                            },
+                            {
+                                "type": "text",
+                                "text": "หน้า 2",
+                                "weight": "bold",
+                                "color": "#ffffff",
+                                "size": "xxl"
+                            },
+                            {
+                                "type": "separator",
+                                "margin": "xxl"
+                            },
+                            {
+                                "type": "box",
+                                "layout": "vertical",
+                                "margin": "xxl",
+                                "spacing": "sm",
+                                "contents": [
+                                    {
+                                        "type": "box",
+                                        "layout": "horizontal",
+                                        "contents": [
+                                            {
+                                                "type": "text",
+                                                "text": "",
+                                                "size": "sm",
+                                                "color": "#ffffff",
+                                                "align": "start"
+                                            },
+                                            {
+                                                "type": "text",
+                                                "text": "",
+                                                "size": "sm",
+                                                "color": "#ffffff",
+                                                "align": "center"
+                                            },
+                                            {
+                                                "type": "text",
+                                                "text": "",
+                                                "size": "sm",
+                                                "color": "#ffffff",
+                                                "align": "end"
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "box",
+                                        "layout": "horizontal",
+                                        "contents": [
+                                            {
+                                                "type": "text",
+                                                "text": "",
+                                                "size": "sm",
+                                                "color": "#ffffff",
+                                                "align": "start"
+                                            },
+                                            {
+                                                "type": "text",
+                                                "text": "",
+                                                "size": "sm",
+                                                "color": "#ffffff",
+                                                "align": "center"
+                                            },
+                                            {
+                                                "type": "text",
+                                                "text": "",
+                                                "size": "sm",
+                                                "color": "#ffffff",
+                                                "align": "end"
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "box",
+                                        "layout": "horizontal",
+                                        "contents": [
+                                            {
+                                                "type": "text",
+                                                "text": "",
+                                                "size": "sm",
+                                                "color": "#ffffff",
+                                                "align": "start"
+                                            },
+                                            {
+                                                "type": "text",
+                                                "text": "",
+                                                "size": "sm",
+                                                "color": "#ffffff",
+                                                "align": "center"
+                                            },
+                                            {
+                                                "type": "text",
+                                                "text": "",
+                                                "size": "sm",
+                                                "color": "#ffffff",
+                                                "align": "end"
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "box",
+                                        "layout": "horizontal",
+                                        "contents": [
+                                            {
+                                                "type": "text",
+                                                "text": "",
+                                                "size": "sm",
+                                                "color": "#ffffff",
+                                                "align": "start"
+                                            },
+                                            {
+                                                "type": "text",
+                                                "text": "",
+                                                "size": "sm",
+                                                "color": "#ffffff",
+                                                "align": "center"
+                                            },
+                                            {
+                                                "type": "text",
+                                                "text": "",
+                                                "size": "sm",
+                                                "color": "#ffffff",
+                                                "align": "end"
+                                            }
+                                        ]
+                                    }
+                                ]
+                            },
+                            {
+                                "type": "box",
+                                "layout": "vertical",
+                                "flex": 0,
+                                "spacing": "sm",
+                                "contents": [
+                                    {
+                                        "type": "button",
+                                        "action": {
+                                            "type": "uri",
+                                            "label": "เพิ่มเติม",
+                                            "uri": "https://docs.google.com/spreadsheets/d/1TFMBHX19EVQWgTZIruszDxIlXo5r1Oj4LYsQQTcutlM/"
+                                        },
+                                        "color": "#ffdab9",
+                                        "height": "md",
+                                        "style": "secondary"
+                                    }
+                                ]
+                            }
+                        ]
+                    }
+                }
+            ]
+        }
+    },
+    "msg2": {
+        "type": "flex",
+        "altText": "this is a flex message",
+        "contents": {
+            "type": "bubble",
+            "styles": {
+                "footer": {
+                    "separator": true
+                }
+            },
+            "hero": {
+                "type": "image",
+                "url": "https://airnfts.s3.amazonaws.com/nft-images/20210525/Shiba_Inu_dance_01_1621967952817.gif",
+                "size": "full",
+                "aspectRatio": "1.51:1",
+                "aspectMode": "fit",
+                "backgroundColor": "#000000FF"
+            },
+            "body": {
+                "type": "box",
+                "layout": "vertical",
+                "spacing": "md",
+                "backgroundColor": "#121212",
+                "contents": [
+                    {
+                        "type": "text",
+                        "text": "รายการสินค้า",
+                        "weight": "bold",
+                        "color": "#ffdab9",
+                        "size": "sm"
+                    },
+                    {
+                        "type": "text",
+                        "text": "",
+                        "weight": "bold",
+                        "color": "#ffffff",
+                        "size": "xxl",
+                        "margin": "md"
+                    },
+                    {
+                        "type": "separator",
+                        "margin": "xxl"
+                    },
+                    {
+                        "type": "box",
+                        "layout": "vertical",
+                        "margin": "xxl",
+                        "spacing": "sm",
+                        "contents": [
+                            {
+                                "type": "box",
+                                "layout": "horizontal",
+                                "contents": [
+                                    {
+                                        "type": "text",
+                                        "text": "จำนวน",
+                                        "size": "sm",
+                                        "color": "#ffffff",
+                                        "flex": 0
+                                    },
+                                    {
+                                        "type": "text",
+                                        "text": "",
+                                        "size": "sm",
+                                        "color": "#ffffff",
+                                        "align": "end"
+                                    }
+                                ]
+                            },
+                            {
+                                "type": "box",
+                                "layout": "horizontal",
+                                "contents": [
+                                    {
+                                        "type": "text",
+                                        "text": "ราคา",
+                                        "size": "sm",
+                                        "color": "#ffffff",
+                                        "flex": 0
+                                    },
+                                    {
+                                        "type": "text",
+                                        "text": "",
+                                        "size": "sm",
+                                        "color": "#ffffff",
+                                        "align": "end"
+                                    }
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        "type": "box",
+                        "layout": "vertical",
+                        "flex": 0,
+                        "spacing": "sm",
+                        "contents": [
+                            {
+                                "type": "button",
+                                "action": {
+                                    "type": "uri",
+                                    "label": "รายการอื่น",
+                                    "uri": "https://docs.google.com/spreadsheets/d/1TFMBHX19EVQWgTZIruszDxIlXo5r1Oj4LYsQQTcutlM/"
+                                },
+                                "color": "#ffdab9",
+                                "height": "md",
+                                "style": "secondary"
+                            }
+                        ]
+                    }
+                ]
+            }
+        }
+    },
+    "msg3": {
+        "type": "flex",
+        "altText": "this is a flex message",
+        "contents": {
+            "type": "bubble",
+            "direction": "ltr",
+            "body": {
+                "type": "box",
+                "layout": "vertical",
+                "contents": [
+                    {
+                        "type": "text",
+                        "text": "Help Command",
+                        "weight": "bold",
+                        "size": "xxl",
+                        "color": "#000000FF",
+                        "contents": []
+                    },
+                    {
+                        "type": "separator",
+                        "margin": "xxl",
+                        "color": "#FFFFFFFF"
+                    },
+                    {
+                        "type": "text",
+                        "text": "!stock",
+                        "weight": "bold",
+                        "size": "lg",
+                        "contents": []
+                    },
+                    {
+                        "type": "text",
+                        "text": "เช็คสต๊อกทั้งหมด",
+                        "contents": []
+                    },
+                    {
+                        "type": "separator",
+                        "margin": "md",
+                        "color": "#FFFFFFFF"
+                    },
+                    {
+                        "type": "text",
+                        "text": "!ckst ชื่อสินค้า",
+                        "weight": "bold",
+                        "size": "lg",
+                        "contents": []
+                    },
+                    {
+                        "type": "text",
+                        "text": "เช็คสินค้าในแต่ละชิ้น",
+                        "contents": []
+                    },
+                    {
+                        "type": "separator",
+                        "margin": "md",
+                        "color": "#FFFFFFFF"
+                    },
+                    {
+                        "type": "text",
+                        "text": "!adst ชื่อสินค้า จำนวน ราคา",
+                        "weight": "bold",
+                        "size": "lg",
+                        "contents": []
+                    },
+                    {
+                        "type": "text",
+                        "text": "สร้างข้อมูลสินค้าใหม่",
+                        "contents": []
+                    },
+                    {
+                        "type": "separator",
+                        "margin": "md",
+                        "color": "#FFFFFFFF"
+                    },
+                    {
+                        "type": "text",
+                        "text": "!upst ชื่อสินค้า จำนวน ราคา",
+                        "weight": "bold",
+                        "size": "lg",
+                        "contents": []
+                    },
+                    {
+                        "type": "text",
+                        "text": "เพิ่มจำนวนสินค้าหรือเปลี่ยนราคาสินค้า",
+                        "contents": []
+                    }
+                ]
+            }
+        }
+    }
+}

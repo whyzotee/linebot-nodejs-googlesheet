@@ -2,6 +2,7 @@ const { google } = require("googleapis");
 const line = require('@line/bot-sdk');
 const express = require('express');
 const dotenv = require('dotenv');
+const message = require('./message.json');
 
 // config env และ package
 const env = dotenv.config().parsed
@@ -36,6 +37,8 @@ app.post('/webhook', line.middleware(lineConfig), async (req, res, next) => {
 
 //คำสั่งเรียกใช้งาน 
 const prefix = '!';
+
+// ตัวแปลไว้เก็บข้อความแบบ Global
 let replyLineMessage
 
 // ฟังชั่นรอง
@@ -44,12 +47,14 @@ const handleEvent = async (event) => {
     // ส่วนของ Google
     const authclient = await auth.getClient();
     const googleSheets = google.sheets({version: "v4", auth: authclient });
+
+    // ID ของ Google Sheet
     const spreadsheetId = "1TFMBHX19EVQWgTZIruszDxIlXo5r1Oj4LYsQQTcutlM";
 
     // get ค่าแถวของ GS
     const getRows = await googleSheets.spreadsheets.values.get({auth, spreadsheetId, range: "data1"});
 
-    // เช็คข้อมูล
+    // เช็คข้อมูลว่าเป็น message หรือเปล่า
     if(event.type !== 'message' || event.message.type !== 'text') return null;
     
     // เริ่มทำงานในโต้ตอบ
@@ -61,16 +66,13 @@ const handleEvent = async (event) => {
 
         // ตัวแปลเก็บข้อมูลจาก GS และ เก็บค่าเช็ค
         let x, y, sheet
-        let z, t = true;
+        let checkitem = true;
 
         // เช็คข้อมูลว่าตรงกับ GS หรือเปล่า
         for (var i=1;i<getRows.data.values.length; i++){
             if(getRows.data.values[i][0] != args[1]) {
                 // เช็คว่ามีข้อมูลอยู่หรือเปล่า
-                z = false;    
-                
-                // เช็คเพิ่มสินค้า
-                t = true;
+                checkitem = false;    
             }
         }
 
@@ -78,270 +80,47 @@ const handleEvent = async (event) => {
             if(getRows.data.values[i][0] == args[1]) {
                 x = getRows.data.values[i][1]
                 y = getRows.data.values[i][2]
-                z = true; 
-                t = false;   
+                checkitem = true; 
                 sheet = i;
             }
         }
         
-        // Message Box สินค้าทั้งหมด
-        let msg1 =  
-        {
-            "type": "flex",
-            "altText": "this is a flex message",
-            "contents": {
-                "type": "carousel",
-                "contents": [{
-                    "type": "bubble",
-                    "styles": {
-                        "footer": {
-                            "separator": true
-                        }
-                    },
-                    "hero": {
-                        "type": "image",
-                        "url": "https://www.somjitpanich.com/wp-content/uploads/2020/06/8996001355923.jpg",
-                        "size": "full",
-                        "aspectRatio": "1.51:1",
-                        "aspectMode": "fit",
-                        "backgroundColor": "#FFFFFF"
-                    },
-                    "body": {
-                        "type": "box",
-                        "layout": "vertical",
-                        "spacing": "md",
-                        "backgroundColor": "#121212",
-                        "contents": [
-                            {"type": "text", "text": "รายการสินค้า", "weight": "bold", "color": "#ffdab9", "size": "sm"},
-                            {"type": "text", "text": "สินค้าทั้งหมด", "weight": "bold", "color": "#ffffff", "size": "xxl", "margin": "md"},
-                            {"type": "separator", "margin": "xxl"},
-                            {"type": "box", "layout": "vertical", "margin": "xxl", "spacing": "sm",
-                                "contents": [
-                                    {
-                                        "type": "box", "layout": "horizontal",
-                                        "contents": [
-                                            {"type": "text", "text": "ชื่อสินค้า", "size": "lg", "color": "#ffffff", "weight": "bold", "align": "start"},
-                                            {"type": "text", "text": "สต๊อก", "size": "lg", "color": "#ffffff", "weight": "bold", "align": "center"},
-                                            {"type": "text", "text": "ราคา", "size": "lg", "color": "#ffffff", "weight": "bold", "align": "end"}
-                                        ],
-                                    },
-                                    {"type": "separator", "margin": "md", "color": "#121212"},
-                                    {
-                                        "type": "box", "layout": "horizontal",
-                                        "contents": [
-                                            {"type": "text", "text": getRows.data.values[1][0], "size": "sm", "color": "#ffffff", "align": "start"},
-                                            {"type": "text", "text": getRows.data.values[1][1], "size": "sm", "color": "#ffffff", "align": "center"},
-                                            {"type": "text", "text": getRows.data.values[1][2], "size": "sm", "color": "#ffffff", "align": "end"}
-                                        ]
-                                    },
-                                    {
-                                        "type": "box", "layout": "horizontal",
-                                        "contents": [
-                                            {"type": "text", "text": getRows.data.values[2][0], "size": "sm", "color": "#ffffff", "align": "start"},
-                                            {"type": "text", "text": getRows.data.values[2][1], "size": "sm", "color": "#ffffff", "align": "center"},
-                                            {"type": "text", "text": getRows.data.values[2][2], "size": "sm", "color": "#ffffff", "align": "end"}
-                                        ],
-                                    },
-                                    {
-                                        "type": "box", "layout": "horizontal",
-                                        "contents": [
-                                            {"type": "text", "text": getRows.data.values[3][0], "size": "sm", "color": "#ffffff", "align": "start"},
-                                            {"type": "text", "text": getRows.data.values[3][1], "size": "sm", "color": "#ffffff", "align": "center"},
-                                            {"type": "text", "text": getRows.data.values[3][2], "size": "sm", "color": "#ffffff", "align": "end"}
-                                        ]
-                                    },
-                                    {
-                                        "type": "box", "layout": "horizontal",
-                                        "contents": [
-                                            {"type": "text", "text": getRows.data.values[4][0], "size": "sm", "color": "#ffffff", "align": "start"},
-                                            {"type": "text", "text": getRows.data.values[4][1], "size": "sm", "color": "#ffffff", "align": "center"},
-                                            {"type": "text", "text": getRows.data.values[4][2], "size": "sm", "color": "#ffffff", "align": "end"}
-                                        ]
-                                    },
-                                    {
-                                        "type": "box", "layout": "horizontal",
-                                        "contents": [
-                                            {"type": "text", "text": getRows.data.values[5][0], "size": "sm", "color": "#ffffff", "align": "start"},
-                                            {"type": "text", "text": getRows.data.values[5][1], "size": "sm", "color": "#ffffff", "align": "center"},
-                                            {"type": "text", "text": getRows.data.values[5][2], "size": "sm", "color": "#ffffff", "align": "end"}
-                                        ]
-                                    }
-                                ]
-                            }
-                        ]
-                    }
-                },
-                // กล่องข้อความที่2
-                {
-                    "type": "bubble",
-                    "styles": {
-                        "footer": {
-                            "separator": true
-                        }
-                    },
-                    "hero": {
-                        "type": "image",
-                        "url": "https://ocs-k8s-prod.s3.ap-southeast-1.amazonaws.com/product/302107.jpg",
-                        "size": "full",
-                        "aspectRatio": "1.51:1",
-                        "aspectMode": "fit",
-                        "backgroundColor": "#FFFFFF"
-                    },
-                    "body": {
-                        "type": "box",
-                        "layout": "vertical",
-                        "spacing": "md",
-                        "backgroundColor": "#121212",
-                        "contents": [
-                            {"type": "text", "text": "รายการสินค้า", "weight": "bold", "color": "#ffdab9", "size": "sm"},
-                            {"type": "text", "text": "หน้า 2", "weight": "bold", "color": "#ffffff", "size": "xxl"},
-                            {"type": "separator", "margin": "xxl"},
-                            {"type": "box", "layout": "vertical", "margin": "xxl", "spacing": "sm",
-                                "contents": [
-                                    //{"type": "separator", "margin": "md", "color": "#121212"},
-                                    {
-                                        "type": "box", "layout": "horizontal",
-                                        "contents": [
-                                            {"type": "text", "text": getRows.data.values[6][0], "size": "sm", "color": "#ffffff", "align": "start"},
-                                            {"type": "text", "text": getRows.data.values[6][1], "size": "sm", "color": "#ffffff", "align": "center"},
-                                            {"type": "text", "text": getRows.data.values[6][2], "size": "sm", "color": "#ffffff", "align": "end"}
-                                        ]
-                                    },
-                                    {
-                                        "type": "box", "layout": "horizontal",
-                                        "contents": [
-                                            {"type": "text", "text": getRows.data.values[7][0], "size": "sm", "color": "#ffffff", "align": "start"},
-                                            {"type": "text", "text": getRows.data.values[7][1], "size": "sm", "color": "#ffffff", "align": "center"},
-                                            {"type": "text", "text": getRows.data.values[7][2], "size": "sm", "color": "#ffffff", "align": "end"}
-                                        ],
-                                    },
-                                    {
-                                        "type": "box", "layout": "horizontal",
-                                        "contents": [
-                                            {"type": "text", "text": getRows.data.values[8][0], "size": "sm", "color": "#ffffff", "align": "start"},
-                                            {"type": "text", "text": getRows.data.values[8][1], "size": "sm", "color": "#ffffff", "align": "center"},
-                                            {"type": "text", "text": getRows.data.values[8][2], "size": "sm", "color": "#ffffff", "align": "end"}
-                                        ]
-                                    },
-                                    {
-                                        "type": "box", "layout": "horizontal",
-                                        "contents": [
-                                            {"type": "text", "text": getRows.data.values[9][0], "size": "sm", "color": "#ffffff", "align": "start"},
-                                            {"type": "text", "text": getRows.data.values[9][1], "size": "sm", "color": "#ffffff", "align": "center"},
-                                            {"type": "text", "text": getRows.data.values[9][2], "size": "sm", "color": "#ffffff", "align": "end"}
-                                        ]
-                                    }
-                                ]
-                            },
-                            {
-                                "type": "box",
-                                "layout": "vertical",
-                                "flex": 0,
-                                "spacing": "sm",
-                                "contents": [
-                                    {
-                                        "type": "button",
-                                        "action": {
-                                        "type": "uri",
-                                        "label": "เพิ่มเติม",
-                                        "uri": "https://docs.google.com/spreadsheets/d/1TFMBHX19EVQWgTZIruszDxIlXo5r1Oj4LYsQQTcutlM/"
-                                    },
-                                "color": "#ffdab9",
-                                "height": "md",
-                                "style": "secondary"
-                                }]
-                            }
-                        ]
-                    }
-                }
-            ]
-            },           
-        } 
+        // ส่งข้อมูลไปเก็บไว้ใน ไฟล์ JSON
+        let num1 = 1;
+        let num2 = 0;
+        for (let i = 0; i < 5; i++) {
+            num1+=1
+            num2+=1
+            message.msg1.contents.contents[0].body.contents[3].contents[num1].contents[0].text = getRows.data.values[num2][0];
+            message.msg1.contents.contents[0].body.contents[3].contents[num1].contents[1].text = getRows.data.values[num2][1];
+            message.msg1.contents.contents[0].body.contents[3].contents[num1].contents[2].text = getRows.data.values[num2][2];
+        }
+        for (let i = 0; i < 4; i++) {
+            num2+=1
+            message.msg1.contents.contents[1].body.contents[3].contents[i].contents[0].text = getRows.data.values[num2][0];
+            message.msg1.contents.contents[1].body.contents[3].contents[i].contents[1].text = getRows.data.values[num2][1];
+            message.msg1.contents.contents[1].body.contents[3].contents[i].contents[2].text = getRows.data.values[num2][2];
+        }
 
-        // Message Box สินค้าแต่ละชิ้น
-        let msg2 = {
-            "type": "flex",
-            "altText": "this is a flex message",
-            "contents": {
-                "type": "bubble",
-                "styles": {
-                    "footer": {"separator": true}
-                },
-                "hero": {
-                    "type": "image",
-                    "url": "https://airnfts.s3.amazonaws.com/nft-images/20210525/Shiba_Inu_dance_01_1621967952817.gif",
-                    "size": "full",
-                    "aspectRatio": "1.51:1",
-                    "aspectMode": "fit",
-                    "backgroundColor": "#000000FF"
-                },
-                "body": {
-                    "type": "box",
-                    "layout": "vertical",
-                    "spacing": "md",
-                    "backgroundColor": "#121212",
-                    "contents": [
-                        {"type": "text", "text": "รายการสินค้า", "weight": "bold", "color": "#ffdab9", "size": "sm"},
-                        {"type": "text", "text": args[1], "weight": "bold", "color": "#ffffff", "size": "xxl", "margin": "md"},
-                        {"type": "separator", "margin": "xxl"},
-                        {"type": "box", "layout": "vertical", "margin": "xxl","spacing": "sm",
-                            "contents": [
-                                {
-                                    "type": "box",
-                                    "layout": "horizontal",
-                                    "contents": [
-                                        {"type": "text", "text": "จำนวน", "size": "sm", "color": "#ffffff", "flex": 0},
-                                        {"type": "text", "text": ""+x, "size": "sm", "color": "#ffffff", "align": "end"},
-                                    ],
-                                },
-                                {
-                                    "type": "box",
-                                    "layout": "horizontal",
-                                    "contents": [
-                                        {"type": "text", "text": "ราคา", "size": "sm", "color": "#ffffff", "flex": 0},
-                                        {"type": "text", "text": ""+y, "size": "sm", "color": "#ffffff", "align": "end"}
-                                    ]
-                                }
-                            ]
-                        },
-                        {
-                            "type": "box",
-                            "layout": "vertical",
-                            "flex": 0,
-                            "spacing": "sm",
-                            "contents": [
-                                {
-                                    "type": "button",
-                                    "action": {
-                                    "type": "uri",
-                                    "label": "รายการอื่น",
-                                    "uri": "https://docs.google.com/spreadsheets/d/1TFMBHX19EVQWgTZIruszDxIlXo5r1Oj4LYsQQTcutlM/"
-                                },
-                            "color": "#ffdab9",
-                            "height": "md",
-                            "style": "secondary"
-                            }]
-                        }
-                    ]
-                }
-            }
-        } 
+        message.msg2.contents.body.contents[1].text = args[1];
+        message.msg2.contents.body.contents[3].contents[0].contents[1].text = x;
+        message.msg2.contents.body.contents[3].contents[1].contents[1].text = y;
 
         // เริ่มคำสั่ง
         switch (cmd){
             case "stock": 
-                replyLineMessage = msg1
+                replyLineMessage = message.msg1
                 break
             case "ckst":
                 if (args[1]==null) {
                     replyLineMessage = {"type": "text", "text": "โปรดกรอกข้อมูลที่ต้องการค้นหาครับ"}
                     break
                 }
-                if (z!=true) replyLineMessage = {"type": "text", "text": "ไม่พบข้อมูลที่ต้องการตรวจสอบครับ" }
-                else replyLineMessage = msg2
+                if (checkitem!=true) replyLineMessage = {"type": "text", "text": "ไม่พบข้อมูลที่ต้องการตรวจสอบครับ" }
+                else replyLineMessage = message.msg2
                 break
             case "adst":
-                if (t==false){
+                if (checkitem==true){
                     replyLineMessage = {"type": "text", "text": "มีสินค้านี้อยู่แล้วโปรดใช้ !upst เพื่อเพิ่มข้อมูลครับ"}
                     break
                 }
@@ -366,7 +145,7 @@ const handleEvent = async (event) => {
                 replyLineMessage = {"type": "text", "text": "เพิ่มสินค้าลงในคลังเรียบร้อยแล้วค้าบ >_<" }
                 break
             case "upst":
-                if (z!=true){
+                if (checkitem!=true){
                     replyLineMessage = {"type": "text", "text": "ไม่พบข้อมูลที่ต้องการเพิ่มครับ"}
                     break
                 }
@@ -391,7 +170,7 @@ const handleEvent = async (event) => {
                 replyLineMessage = {"type": "text", "text": "อัพเดทข้อมูลเรียบร้อยแล้วค้าบบบ" }
                 break
             case "help":
-                replyLineMessage = {"type": "text", "text": "!stock , !ckst, !adst, !upst"}
+                replyLineMessage = message.msg3
                 break
             default:
                 replyLineMessage = {"type": "text", "text": "ไม่พบคำสั่ง โปรดลองพิม !help เพื่อดูคำสั่งครับ"}
@@ -403,7 +182,8 @@ const handleEvent = async (event) => {
 
     // พิมหาบอทที่ไม่ใช่ command
     } else {
-        let msg;
+
+        // array คำที่ผู้ใช้งานพิมจะตอบกลับเป็นข้อความแบบสุ่ม
         let usermsg = ["มี", "ใช่"]
         let replymsgX = ["ต้องการใช้งานบอทหรอครับ? (โปรดพิม ใช่ ถ้าต้องการใช้งานครับ)", "มีอะไรให้ช่วยไหมครับ >_< (โปรดพิม มี ถ้าต้องการใช้งานครับ)"]
         let replymsgY = ["โปรดพิม !help ครับ", "พิม !help ดูสิ!", "พิม !help เพื่อดูคำสั่งครับ"]
@@ -416,7 +196,7 @@ const handleEvent = async (event) => {
 
         for (let i=0; i < usermsg.length; i++) {
             if (event.message.text.includes(usermsg[i])) {
-                msg = {"type": "text", "text": replymsgY[Math.floor(Math.random()*replymsgY.length)] };
+                replyLineMessage = {"type": "text", "text": replymsgY[Math.floor(Math.random()*replymsgY.length)] };
                 check = true;
             }
         }
@@ -424,21 +204,21 @@ const handleEvent = async (event) => {
         if (check == false) {
             switch (event.message.text) {
                 case "สีเหลือง" :
-                    msg = {"type": "text", "text": "Yellow!"};
+                    replyLineMessage = {"type": "text", "text": "Yellow!"};
                     break
                 case "มะม่วง" :
-                    msg = {"type": "text", "text": "Mango!"};
+                    replyLineMessage = {"type": "text", "text": "Mango!"};
                     break
                  case "ห้ะ" :
-                    msg = {"type": "text", "text": "ห้ะ!"};
+                    replyLineMessage = {"type": "text", "text": "ห้ะ!"};
                     break
                 default :
-                    msg = {"type": "text", "text": replymsgX[Math.floor(Math.random()*replymsgX.length)] };
+                replyLineMessage = {"type": "text", "text": replymsgX[Math.floor(Math.random()*replymsgX.length)] };
                     break
             }  
         }
 
-        return client.replyMessage(event.replyToken, msg);
+        return client.replyMessage(event.replyToken, replyLineMessage);
     }
 }
 const PORT = process.env.PORT || 3000;
