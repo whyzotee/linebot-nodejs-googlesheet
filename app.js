@@ -88,14 +88,14 @@ const handleEvent = async (event) => {
         // ส่งข้อมูลไปเก็บไว้ใน ไฟล์ JSON
         let num1 = 1;
         let num2 = 0;
-        for (let i = 0; i < 5; i++) {
+        for (var i = 0; i < 5; i++) {
             num1+=1
             num2+=1
             message.msg1.contents.contents[0].body.contents[3].contents[num1].contents[0].text = getRows.data.values[num2][0];
             message.msg1.contents.contents[0].body.contents[3].contents[num1].contents[1].text = getRows.data.values[num2][1];
             message.msg1.contents.contents[0].body.contents[3].contents[num1].contents[2].text = getRows.data.values[num2][2];
         }
-        for (let i = 0; i < 4; i++) {
+        for (var i = 0; i < 4; i++) {
             num2+=1
             message.msg1.contents.contents[1].body.contents[3].contents[i].contents[0].text = getRows.data.values[num2][0];
             message.msg1.contents.contents[1].body.contents[3].contents[i].contents[1].text = getRows.data.values[num2][1];
@@ -188,13 +188,13 @@ const handleEvent = async (event) => {
         let replymsgX = ["ต้องการใช้งานบอทหรอครับ? (โปรดพิม ใช่ ถ้าต้องการใช้งานครับ)", "มีอะไรให้ช่วยไหมครับ >_< (โปรดพิม มี ถ้าต้องการใช้งานครับ)"]
         let replymsgY = ["โปรดพิม !help ครับ", "พิม !help ดูสิ!", "พิม !help เพื่อดูคำสั่งครับ"]
 
-        for (let i=0; i < usermsg.length; i++) {
+        for (var i=0; i < usermsg.length; i++) {
             if (!event.message.text.includes(usermsg[i])) {
                 check = false;
             }
         }
 
-        for (let i=0; i < usermsg.length; i++) {
+        for (var i=0; i < usermsg.length; i++) {
             if (event.message.text.includes(usermsg[i])) {
                 replyLineMessage = {"type": "text", "text": replymsgY[Math.floor(Math.random()*replymsgY.length)] };
                 check = true;
