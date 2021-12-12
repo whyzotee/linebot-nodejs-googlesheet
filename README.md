@@ -256,3 +256,5 @@ app.listen(PORT, () => {
     console.log(`listening on Port ${PORT}`);
 });
 ```
+## License
+ก็อปได้ครับ แต่ให้เครดิตด้วยนะค้าบบบ
