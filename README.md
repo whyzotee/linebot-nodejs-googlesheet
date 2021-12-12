@@ -6,6 +6,14 @@
 ![image](https://user-images.githubusercontent.com/53619535/145719949-5d501ee0-d0d1-47e7-9349-e1354e52976b.png)
 ![image](https://user-images.githubusercontent.com/53619535/145721156-c32cef51-4c2a-46a1-9fb5-a0659cf4a770.png)
 
+# Requirement
+channelAccessToken: `Line Channel access token` ("เอาได้จาก Line Developer ครับ") <br>
+channelSecret: `Line Channel secret` ("เอาได้จาก Line Developer ครับ") <br>
+keyFile: `Google API key.json` ("เอาได้จาก Google Cloud Platform ครับ") <br>
+spreadsheetId: `Google Sheet ID` ("เอาได้จากลิงค์ Google Sheet ที่เราต้องการแก้ไขครับ") <br>
+**ปล1. Google API Key ต้องขอจาก Google Sheet API แล้วเพิ่มบัญชีครับ <br>
+**ปล2. เอาบัญชีที่เพิ่มใน Google API ไปใส่ใน Google Sheet ของเราแล้วปรับเป็น แก้ไขได้ครับ
+เพื่อให้บอทเข้าไปแก้ไข Google Sheet ได้
 
 # Source Code รสมะเขือเทศครับ
 ```js
