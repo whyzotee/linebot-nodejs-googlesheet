@@ -1,5 +1,5 @@
 # LineBot
-ใช้ Nodejs ในการสร้าง LineBot ให้แก้ไขตารางของ Google Sheet
+สร้างขึ้นจาก JavaScript โดยใช้ Nodejs ให้ LineBot เชื่อมกับ Google Sheet ทำการ อ่าน/เขียน และ แก้ไขข้อมูลใน ตาราง Google Sheet โดยพิมข้อความผ่านแชท Line ส่วนตัวหรือกลุ่มที่มี LineBot ตัวนี้อยู่ และ แจ้งข้อความกลับให้ผู้ใช้งาน เกี่ยวกับการ อ่าน/เขียน และ แก้ไขข้อมูล เป็นรูปแบบที่อ่านง่ายและดูสวยงาม
 # ตัวอย่างครับ
 
 ![image](https://user-images.githubusercontent.com/53619535/145721215-c0706223-7f44-4300-90d6-16f2804b5c2c.png)<br>
@@ -17,7 +17,7 @@ spreadsheetId: `Google Sheet ID` ("เอาได้จากลิงค์ Go
 
 # Source Code รสมะเขือเทศครับ
 ```js
-const { google } = require("googleapis");
+const google = require("googleapis");
 const line = require('@line/bot-sdk');
 const express = require('express');
 const dotenv = require('dotenv');
