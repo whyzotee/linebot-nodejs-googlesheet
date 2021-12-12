@@ -1,11 +1,11 @@
-# LineBot Made By Nodejs
+# LineBot By Nodejs
 สร้างขึ้นจาก JavaScript โดยใช้ Nodejs ให้ LineBot เชื่อมกับ Google Sheet ทำการ อ่าน/เขียน และ แก้ไขข้อมูลใน ตาราง Google Sheet โดยพิมข้อความผ่านแชท Line ส่วนตัวหรือกลุ่มที่มี LineBot ตัวนี้อยู่ และ แจ้งข้อความกลับให้ผู้ใช้งาน เกี่ยวกับการ อ่าน/เขียน และ แก้ไขข้อมูล เป็นรูปแบบที่อ่านง่ายและดูสวยงาม
 ## ตัวอย่างครับ
 
 ![image](https://user-images.githubusercontent.com/53619535/145721215-c0706223-7f44-4300-90d6-16f2804b5c2c.png)<br>
 ![image](https://user-images.githubusercontent.com/53619535/145722338-d94249fb-e175-4cbd-a916-6a54527bcf05.png)
 ![image](https://user-images.githubusercontent.com/53619535/145719949-5d501ee0-d0d1-47e7-9349-e1354e52976b.png)
-![image](https://user-images.githubusercontent.com/53619535/145721156-c32cef51-4c2a-46a1-9fb5-a0659cf4a770.png)
+![image](https://user-images.githubusercontent.com/53619535/145722648-1f3506c0-f12f-494c-b900-c42fb99e2077.jpg)
 
 ## Requirement
 channelAccessToken: `Line Channel access token` ("เอาได้จาก Line Developer ครับ") <br>
@@ -105,7 +105,7 @@ const handleEvent = async (event) => {
             }
         }
         
-        // ส่งข้อมูลไปเก็บไว้ใน ไฟล์ JSON
+        // ส่งข้อมูลไปเก็บไว้ใน ไฟล์ message.json
         let num1 = 1;
         let num2 = 0;
         for (var i = 0; i < 5; i++) {
@@ -256,3 +256,5 @@ app.listen(PORT, () => {
     console.log(`listening on Port ${PORT}`);
 });
 ```
+## License
+ก็อปได้ครับ แต่ให้เครดิตด้วยนะค้าบบบ
