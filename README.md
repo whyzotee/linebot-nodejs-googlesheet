@@ -105,7 +105,7 @@ const handleEvent = async (event) => {
             }
         }
         
-        // ส่งข้อมูลไปเก็บไว้ใน ไฟล์ JSON
+        // ส่งข้อมูลไปเก็บไว้ใน ไฟล์ message.json
         let num1 = 1;
         let num2 = 0;
         for (var i = 0; i < 5; i++) {
