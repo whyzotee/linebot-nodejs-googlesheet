@@ -18,7 +18,7 @@ spreadsheetId: `Google Sheet ID` ("เอาได้จากลิงค์ Go
 
 ## Source Code รสพริกครับ
 ```js
-const { google } = require("googleapis");
+const google = require("googleapis");
 const line = require('@line/bot-sdk');
 const express = require('express');
 const dotenv = require('dotenv');
@@ -54,15 +54,15 @@ app.post('/webhook', line.middleware(lineConfig), async (req, res, next) => {
         res.status(500).end()
     }
 });
-
-//คำสั่งเรียกใช้งาน 
-const prefix = '!';
-
 // ตัวแปลไว้เก็บข้อความแบบ Global
 let replyLineMessage
 
-// ตัวแปลเช็คข้อมูล
+// 1=add stock 2=delete stock 
 let confirm = 0;
+
+// ตัวแปลเก็บข้อมูลจาก GS และ เก็บค่าเช็ค
+let x, y, sheet
+let checkitem = true;
 
 // ฟังชั่นรอง
 const handleEvent = async (event) => {
@@ -77,6 +77,9 @@ const handleEvent = async (event) => {
     // get ค่าแถวของ GS
     const getRows = await googleSheets.spreadsheets.values.get({auth, spreadsheetId, range: "data1"});
 
+    //คำสั่งเรียกใช้งาน 
+    const prefix = '!';
+
     // เช็คข้อมูลว่าเป็น message หรือเปล่า
     if(event.type !== 'message' || event.message.type !== 'text') return null;
     
@@ -86,10 +89,6 @@ const handleEvent = async (event) => {
         // คำสั่งเรียกใช้งาน 
         const args = event.message.text.trim().split(/ +/g);
         const cmd = args[0].slice(prefix.length).toLowerCase();       
-
-        // ตัวแปลเก็บข้อมูลจาก GS และ เก็บค่าเช็ค
-        let x, y, sheet
-        let checkitem = true;
 
         // เช็คข้อมูลว่าตรงกับ GS หรือเปล่า
         for (var i=1;i<getRows.data.values.length; i++){
@@ -149,19 +148,22 @@ const handleEvent = async (event) => {
                     if (args[1] == null){
                         replyLineMessage = {"type": "text", "text": "โปรดกรอกข้อมูลที่ต้องการอัพเดท ตัวอย่างเช่น !adst ชื่อสินค้า จำนวน ราคา"}
                         break
-                    }else if (args[2] == null) {
+                    } else if (args[2] == null) {
                         replyLineMessage = {"type": "text", "text": "โปรดกรอก จำนวน สินค้า ตัวอย่างเช่น !adst ชื่อสินค้า จำนวน ราคา"}
                         break
-                    }else if (args[3] == null) {
+                    } else if (args[3] == null) {
                         replyLineMessage = {"type": "text", "text": "โปรดกรอก ราคา สินค้า ตัวอย่างเช่น !adst ชื่อสินค้า จำนวน ราคา"}
                         break
+                    } else if (Number.isInteger(parseInt(args[2])) == false || Number.isInteger(parseInt(args[3])) == false) {
+                        replyLineMessage = {"type": "text", "text": "โปรดกรอกข้อมูลให้ถูกต้อง ตัวอย่างเช่น !adst ชื่อสินค้า จำนวน ราคา"}
+                        break
                     }
-
+                    
                     let updatedata = parseInt(args[2])+parseInt(x);
                     // อัพเดทข้อมูลลงแถวของ GS
                     await googleSheets.spreadsheets.values.update(
                         {auth, spreadsheetId, range: `data1!A${sheet+1}:C${sheet+1}`, valueInputOption: "USER_ENTERED", 
-                        resource:{range: `data1!A${sheet+1}:C${sheet+1}`, majorDimension: "ROWS", values: [[`${args[1]}`, `${updatedata}`, `${args[3]}`]] }
+                        resource:{range: `data1!A${sheet+1}:C${sheet+1}`, majorDimension: "ROWS", values: [[`${args[1]}`, `${updatedata}`, `${parseInt(args[3])}`]] }
                     });
     
                     replyLineMessage = {"type": "text", "text": "อัพเดทข้อมูลเรียบร้อยแล้วค้าบบบ" }
@@ -170,11 +172,14 @@ const handleEvent = async (event) => {
                     if (args[1] == null){
                         replyLineMessage = {"type": "text", "text": "โปรดกรอกข้อมูลที่ต้องการเพิ่ม ตัวอย่างเช่น !adst ชื่อสินค้า จำนวน ราคา"}
                         break
-                    }else if (args[2] == null) {
+                    } else if (args[2] == null) {
                         replyLineMessage = {"type": "text", "text": "โปรดกรอก จำนวน สินค้า ตัวอย่างเช่น !adst ชื่อสินค้า จำนวน ราคา"}
                         break
-                    }else if (args[3] == null) {
+                    } else if (args[3] == null) {
                         replyLineMessage = {"type": "text", "text": "โปรดกรอก ราคา สินค้า ตัวอย่างเช่น !adst ชื่อสินค้า จำนวน ราคา"}
+                        break
+                    } else if (Number.isInteger(parseInt(args[2])) == false || Number.isInteger(parseInt(args[3])) == false) {
+                        replyLineMessage = {"type": "text", "text": "โปรดกรอกข้อมูลให้ถูกต้อง ตัวอย่างเช่น !adst ชื่อสินค้า จำนวน ราคา"}
                         break
                     }
 
@@ -183,9 +188,21 @@ const handleEvent = async (event) => {
                     message.adddata.data1 = args[1];
                     message.adddata.data2 = args[2];
                     message.adddata.data3 = args[3];
-                    replyLineMessage = {"type": "text", "text": "ต้องการที่จะเพิ่มข้อมูลใหม่ใช่หรือไม่? (หากมีข้อมูลอยู่แล้วอาจทำให้ซ้ำกับอันเก่าได้)\nโปรดพิม ใช่/Y หรือ ไม่/N" }
+                    replyLineMessage = {"type": "text", "text": "ต้องการที่จะเพิ่มข้อมูลใหม่ใช่หรือไม่? (หากมีข้อมูลอยู่แล้วอาจทำให้ซ้ำกับอันเก่าได้)\nโปรดพิม ใช่/Y หรือ ไม่/N เพื่อยืนยัน" }
                     break
                 }
+            case "rmst":
+                if (args[1] == null){
+                    replyLineMessage = {"type": "text", "text": "โปรดกรอกข้อมูลที่ต้องลบ ตัวอย่างเช่น !rmst ชื่อสินค้า"}
+                    break
+                }
+                if (checkitem != true) {
+                    replyLineMessage = {"type": "text", "text": "ไม่พบข้อมูลที่ต้องการจะลบครับ" }
+                    break
+                }
+                confirm = 2;
+                replyLineMessage = {"type": "text", "text": "ต้องการที่จะลบข้อมูลใหม่ใช่หรือไม่? (ข้อมูลที่ถูกลบจะไม่สามารถกู้คืนได้)\nโปรดพิม ใช่/Y หรือ ไม่/N เพื่อยืนยัน" }
+                break
             case "help":
                 replyLineMessage = message.msg3
                 break
@@ -203,7 +220,7 @@ const handleEvent = async (event) => {
         //array คำที่ผู้ใช้งานพิมจะตอบกลับเป็นข้อความแบบสุ่ม
         let usermsg = ["มี", "ใช่"]
         let replymsgX = ["ต้องการใช้งานบอทหรอครับ? (โปรดพิม ใช่ ถ้าต้องการใช้งานครับ)", "มีอะไรให้ช่วยไหมครับ >_< (โปรดพิม มี ถ้าต้องการใช้งานครับ)"]
-        let replymsgY = ["โปรดพิม !help ครับ", "พิม !help ดูสิ!", "พิม !help เพื่อดูคำสั่งครับ"]
+        let replymsgY = ["โปรดพิม !help ครับ", "พิม !help ดูสิ!", "พิม !help เพื่อดูคำสั่งครับ","ดวงไม่ดีเลยนะมึง โง่ๆ"]
 
         // เช็คคำที่ผู้ใช้งานพิมมา
         for (var i=0; i < usermsg.length; i++) {
@@ -215,20 +232,34 @@ const handleEvent = async (event) => {
         }
 
         // ยืนยันการเพิ่มสินค้าใหม่
-        if (confirm == 1 && event.message.text == "ใช่" || event.message.text == "Y") {
-            // เพิ่มข้อมูลลงแถวของ GS
-            await googleSheets.spreadsheets.values.append({auth, spreadsheetId, range: "data1!A:C", valueInputOption: "USER_ENTERED",
-            resource: {
-                    values: [[message.adddata.data1, message.adddata.data2, message.adddata.data3]]
-                }
-            });
-            confirm = 0;
-            return client.replyMessage(event.replyToken, {"type": "text", "text": "เพิ่มสินค้าลงในคลังเรียบร้อยแล้วค้าบ >_<"});
+        if (confirm == 1) {
+            if (event.message.text == "ใช่" || event.message.text.toLowerCase() == "y") {
+                // เพิ่มข้อมูลลงแถวของ GS
+                await googleSheets.spreadsheets.values.append({auth, spreadsheetId, range: "data1!A:C", valueInputOption: "USER_ENTERED",
+                resource: {
+                        values: [[`${message.adddata.data1}`, `${parseInt(message.adddata.data2)}`, `${parseInt(message.adddata.data3)}`]]
+                    }
+                });
+                confirm = 0;
+                return client.replyMessage(event.replyToken, {"type": "text", "text": "เพิ่มสินค้าลงในคลังเรียบร้อยแล้วค้าบ >_<"});
+            } else if (confirm == 1 && event.message.text == "ไม่" || event.message.text.toLowerCase() == "n") {
+                confirm = 0;
+                return client.replyMessage(event.replyToken, {"type": "text", "text": "ยกเลิกการเพิ่มข้อมูลใหม่เรียบร้อยแล้ว!"});
+            }
             
-        } else if (confirm == 1 && event.message.text == "ไม่" || event.message.text == "N"){
-            confirm = 0;
-            return client.replyMessage(event.replyToken, {"type": "text", "text": "ยกเลิกการเพิ่มข้อมูลใหม่เรียบร้อยแล้ว!"});
-
+        // ยืนยันการลบข้อมูล
+        } else if (confirm == 2){
+            if (event.message.text == "ใช่" || event.message.text.toLowerCase() == "y") {
+                let resource = {
+                    "requests": [{"deleteDimension": {"range": {"sheetId": "0", "dimension": "ROWS", "startIndex": sheet, "endIndex": sheet+1}}}]
+                }
+                await googleSheets.spreadsheets.batchUpdate({auth: auth,spreadsheetId: spreadsheetId, resource: resource});
+                confirm = 0;
+                return client.replyMessage(event.replyToken, {"type": "text", "text": "ลบข้อมูลสินค้าในคลังเรียบร้อยแล้วค้าบ >_<"});
+            } else if (confirm == 2 && event.message.text == "ไม่" || event.message.text.toLowerCase() == "n") {
+                confirm = 0;
+                return client.replyMessage(event.replyToken, {"type": "text", "text": "ยกเลิกการลบข้อมูลเรียบร้อยแล้ว!"});
+            }
         }
 
         // ถ้าผู้ใช้พิมคำอะไรไม่รู้มาแล้วให้ตอบกลับเป็นการเข้าถึง Command
@@ -252,7 +283,6 @@ const handleEvent = async (event) => {
         return client.replyMessage(event.replyToken, replyLineMessage);
     }
 }
-const PORT = process.env.PORT || 3000;
 
 //รันบน localhost
 
@@ -261,6 +291,7 @@ const PORT = process.env.PORT || 3000;
 // });
 
 // รันบน server
+const PORT = process.env.PORT || 3000;
 
 app.listen(PORT, () => {
     console.log(PORT);
