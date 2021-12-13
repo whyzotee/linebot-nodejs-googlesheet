@@ -134,6 +134,7 @@ const handleEvent = async (event) => {
                         replyLineMessage = {"type": "text", "text": "โปรดกรอก ราคา สินค้า ตัวอย่างเช่น !adst ชื่อสินค้า จำนวน ราคา"}
                         break
                     }
+                    
                     let updatedata = parseInt(args[2])+parseInt(x);
                     // อัพเดทข้อมูลลงแถวของ GS
                     await googleSheets.spreadsheets.values.update(
@@ -154,6 +155,8 @@ const handleEvent = async (event) => {
                         replyLineMessage = {"type": "text", "text": "โปรดกรอก ราคา สินค้า ตัวอย่างเช่น !adst ชื่อสินค้า จำนวน ราคา"}
                         break
                     }
+
+                    // ส่งข้อมูลที่ผู้ใช้ต้องการเพิ่มใหม่ไปเก็บไว้ไฟล์ message.json
                     confirm = 1;
                     message.adddata.data1 = args[1];
                     message.adddata.data2 = args[2];
