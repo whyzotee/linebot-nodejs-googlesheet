@@ -180,6 +180,7 @@ const handleEvent = async (event) => {
         let replymsgX = ["ต้องการใช้งานบอทหรอครับ? (โปรดพิม ใช่ ถ้าต้องการใช้งานครับ)", "มีอะไรให้ช่วยไหมครับ >_< (โปรดพิม มี ถ้าต้องการใช้งานครับ)"]
         let replymsgY = ["โปรดพิม !help ครับ", "พิม !help ดูสิ!", "พิม !help เพื่อดูคำสั่งครับ"]
 
+        // เช็คคำที่ผู้ใช้งานพิมมา
         for (var i=0; i < usermsg.length; i++) {
             if (!event.message.text.includes(usermsg[i])) check = false;
         }
@@ -188,6 +189,7 @@ const handleEvent = async (event) => {
             if (event.message.text.includes(usermsg[i])) check = true;  
         }
 
+        // ยืนยันการเพิ่มสินค้าใหม่
         if (confirm == 1 && event.message.text == "ใช่" || event.message.text == "Y") {
             // เพิ่มข้อมูลลงแถวของ GS
             await googleSheets.spreadsheets.values.append({auth, spreadsheetId, range: "data1!A:C", valueInputOption: "USER_ENTERED",
@@ -204,6 +206,7 @@ const handleEvent = async (event) => {
 
         }
 
+        // ถ้าผู้ใช้พิมคำอะไรไม่รู้มาแล้วให้ตอบกลับเป็นการเข้าถึง Command
         if (check == false) {
             switch (event.message.text) {
                 case "สีเหลือง" :
