@@ -4,8 +4,8 @@
 
 ![image](https://user-images.githubusercontent.com/53619535/145721215-c0706223-7f44-4300-90d6-16f2804b5c2c.png)<br>
 ![image](https://user-images.githubusercontent.com/53619535/145722338-d94249fb-e175-4cbd-a916-6a54527bcf05.png)
-![image](https://user-images.githubusercontent.com/53619535/145719949-5d501ee0-d0d1-47e7-9349-e1354e52976b.png)
-![image](https://user-images.githubusercontent.com/53619535/145722648-1f3506c0-f12f-494c-b900-c42fb99e2077.jpg)
+![image](https://user-images.githubusercontent.com/53619535/145746641-bfab423d-1039-4e95-8d8b-d5a9f4c40b72.png)
+![image](https://user-images.githubusercontent.com/53619535/145746681-cc943c42-328e-43a6-a6c2-d839703e81f3.png)
 
 ## Configuration
 channelAccessToken: `Line Channel access token` ("เอาได้จาก Line Developer ครับ") <br>
