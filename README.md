@@ -60,6 +60,8 @@ const prefix = '!';
 
 // ตัวแปลไว้เก็บข้อความแบบ Global
 let replyLineMessage
+
+// ตัวแปลเช็คข้อมูล
 let confirm = 0;
 
 // ฟังชั่นรอง
