@@ -7,7 +7,7 @@
 ![image](https://user-images.githubusercontent.com/53619535/145719949-5d501ee0-d0d1-47e7-9349-e1354e52976b.png)
 ![image](https://user-images.githubusercontent.com/53619535/145722648-1f3506c0-f12f-494c-b900-c42fb99e2077.jpg)
 
-## Requirement
+## Configuration
 channelAccessToken: `Line Channel access token` ("เอาได้จาก Line Developer ครับ") <br>
 channelSecret: `Line Channel secret` ("เอาได้จาก Line Developer ครับ") <br>
 keyFile: `Google API key.json` ("เอาได้จาก Google Cloud Platform ครับ") <br>
