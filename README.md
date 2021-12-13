@@ -27,7 +27,7 @@ https://linebot-0104.herokuapp.com/webhook
 Google Sheet
 ```
 SpreadsheetId: เอาได้จากหลัง url Google Sheet เช่น
-https://docs.google.com/spreadsheets/d/"**spreadsheetId***"/edit
+https://docs.google.com/spreadsheets/d/**spreadsheetId***/edit
 range: เอาได้จากชื่อของแผ่นงาน
 ```
 Google Sheet API
