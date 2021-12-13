@@ -1,4 +1,9 @@
 {
+    "adddata": {
+        "data1": "",
+        "data2": "",
+        "data3": ""
+    },
     "msg1": {
         "type": "flex",
         "altText": "this is a flex message",
@@ -586,24 +591,7 @@
                     },
                     {
                         "type": "text",
-                        "text": "สร้างข้อมูลสินค้าใหม่",
-                        "contents": []
-                    },
-                    {
-                        "type": "separator",
-                        "margin": "md",
-                        "color": "#FFFFFFFF"
-                    },
-                    {
-                        "type": "text",
-                        "text": "!upst ชื่อสินค้า จำนวน ราคา",
-                        "weight": "bold",
-                        "size": "lg",
-                        "contents": []
-                    },
-                    {
-                        "type": "text",
-                        "text": "เพิ่มจำนวนสินค้าหรือเปลี่ยนราคาสินค้า",
+                        "text": "อัพเดทหรือสร้างข้อมูลของสินค้า",
                         "contents": []
                     }
                 ]
