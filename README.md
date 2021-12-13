@@ -8,6 +8,16 @@
 ![image](https://user-images.githubusercontent.com/53619535/145746681-cc943c42-328e-43a6-a6c2-d839703e81f3.png)
 
 ## Configuration
+.env
+```
+PORT=4000
+CHANNEL_ACCESS_TOKEN=Line Channel access token
+CHANNEL_SECRET=Line Channel secret
+```
+credentials.json
+```
+เป็นไฟล์ได้โหลดได้จาก Google Sheet API
+```
 channelAccessToken: `Line Channel access token` ("เอาได้จาก Line Developer ครับ") <br>
 channelSecret: `Line Channel secret` ("เอาได้จาก Line Developer ครับ") <br>
 keyFile: `Google API key.json` ("เอาได้จาก Google Cloud Platform ครับ") <br>
