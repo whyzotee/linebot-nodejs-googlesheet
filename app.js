@@ -55,8 +55,6 @@ const handleEvent = async (event) => {
     // get ค่าแถวของ GS
     const getRows = await googleSheets.spreadsheets.values.get({auth, spreadsheetId, range: "data1"});
 
-    console.log(confirm);
-
     // เช็คข้อมูลว่าเป็น message หรือเปล่า
     if(event.type !== 'message' || event.message.type !== 'text') return null;
     
@@ -91,6 +89,7 @@ const handleEvent = async (event) => {
         // ส่งข้อมูลไปเก็บไว้ใน ไฟล์ JSON
         let num1 = 1;
         let num2 = 0;
+
         for (var i = 0; i < 5; i++) {
             num1+=1
             num2+=1
@@ -98,6 +97,7 @@ const handleEvent = async (event) => {
             message.msg1.contents.contents[0].body.contents[3].contents[num1].contents[1].text = getRows.data.values[num2][1];
             message.msg1.contents.contents[0].body.contents[3].contents[num1].contents[2].text = getRows.data.values[num2][2];
         }
+
         for (var i = 0; i < 4; i++) {
             num2+=1
             message.msg1.contents.contents[1].body.contents[3].contents[i].contents[0].text = getRows.data.values[num2][0];
