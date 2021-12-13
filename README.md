@@ -8,20 +8,42 @@
 ![image](https://user-images.githubusercontent.com/53619535/145746681-cc943c42-328e-43a6-a6c2-d839703e81f3.png)
 
 ## Configuration
+Line
+```
+1.Create LINE Business ID 
+2.Create Providers LINE Developers
+3.Create Channel - Messaging API
+
+ChannelAccessToken ไปที่
+Messaging API > Channel access token
+
+ChannelSecret ไปที่
+Basic settings > Channel secret
+
+WebHook URL ใส่เป็น url localhost แบบ public หรือ domain name ของ Server
+ตามด้วย /webhook ด้านหลัง เช่น
+https://linebot-0104.herokuapp.com/webhook
+```
+Google Sheet
+```
+SpreadsheetId: เอาได้จากหลัง url Google Sheet เช่น
+https://docs.google.com/spreadsheets/d/"**spreadsheetId***"/edit
+range: เอาได้จากชื่อของแผ่นงาน
+```
+Google Sheet API
+```
+เอาได้จาก Google Cloud Platform ครับ
+```
 .env
 ```
 PORT=4000
-CHANNEL_ACCESS_TOKEN=Line Channel access token
-CHANNEL_SECRET=Line Channel secret
+CHANNEL_ACCESS_TOKEN=Line ChannelAccessToken
+CHANNEL_SECRET=Line ChannelSecret
 ```
 credentials.json
 ```
 เป็นไฟล์ที่โหลดได้จาก Google Sheet API
 ```
-channelAccessToken: `Line Channel access token` ("เอาได้จาก Line Developer ครับ") <br>
-channelSecret: `Line Channel secret` ("เอาได้จาก Line Developer ครับ") <br>
-keyFile: `Google API key.json` ("เอาได้จาก Google Cloud Platform ครับ") <br>
-spreadsheetId: `Google Sheet ID` ("เอาได้จากลิงค์ Google Sheet ที่เราต้องการแก้ไขครับ") <br>
 **ปล1. Google API Key ต้องขอจาก Google Sheet API แล้วเพิ่มบัญชีครับ <br>
 **ปล2. เอาบัญชีที่เพิ่มใน Google API ไปใส่ใน Google Sheet ของเราแล้วปรับเป็น แก้ไขได้ครับ
 เพื่อให้บอทเข้าไปแก้ไข Google Sheet ได้
