@@ -127,10 +127,10 @@ const handleEvent = async (event) => {
                     if (args[1] == null){
                         replyLineMessage = {"type": "text", "text": "โปรดกรอกข้อมูลที่ต้องการอัพเดท ตัวอย่างเช่น !adst ชื่อสินค้า จำนวน ราคา"}
                         break
-                    }else if (args[2] == null) {
+                    } else if (args[2] == null) {
                         replyLineMessage = {"type": "text", "text": "โปรดกรอก จำนวน สินค้า ตัวอย่างเช่น !adst ชื่อสินค้า จำนวน ราคา"}
                         break
-                    }else if (args[3] == null) {
+                    } else if (args[3] == null) {
                         replyLineMessage = {"type": "text", "text": "โปรดกรอก ราคา สินค้า ตัวอย่างเช่น !adst ชื่อสินค้า จำนวน ราคา"}
                         break
                     }
@@ -148,10 +148,10 @@ const handleEvent = async (event) => {
                     if (args[1] == null){
                         replyLineMessage = {"type": "text", "text": "โปรดกรอกข้อมูลที่ต้องการเพิ่ม ตัวอย่างเช่น !adst ชื่อสินค้า จำนวน ราคา"}
                         break
-                    }else if (args[2] == null) {
+                    } else if (args[2] == null) {
                         replyLineMessage = {"type": "text", "text": "โปรดกรอก จำนวน สินค้า ตัวอย่างเช่น !adst ชื่อสินค้า จำนวน ราคา"}
                         break
-                    }else if (args[3] == null) {
+                    } else if (args[3] == null) {
                         replyLineMessage = {"type": "text", "text": "โปรดกรอก ราคา สินค้า ตัวอย่างเช่น !adst ชื่อสินค้า จำนวน ราคา"}
                         break
                     }
@@ -230,7 +230,6 @@ const handleEvent = async (event) => {
         return client.replyMessage(event.replyToken, replyLineMessage);
     }
 }
-const PORT = process.env.PORT || 3000;
 
 //รันบน localhost
 
@@ -239,6 +238,7 @@ const PORT = process.env.PORT || 3000;
 // });
 
 // รันบน server
+const PORT = process.env.PORT || 3000;
 
 app.listen(PORT, () => {
     console.log(PORT);
