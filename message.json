@@ -593,6 +593,23 @@
                         "type": "text",
                         "text": "อัพเดทหรือสร้างข้อมูลของสินค้า",
                         "contents": []
+                    },
+                    {
+                        "type": "separator",
+                        "margin": "md",
+                        "color": "#FFFFFFFF"
+                    },
+                    {
+                        "type": "text",
+                        "text": "!rmst ชื่อสินค้า",
+                        "weight": "bold",
+                        "size": "lg",
+                        "contents": []
+                    },
+                    {
+                        "type": "text",
+                        "text": "ลบข้อมูลของสินค้าออกจากฐานข้อมูล",
+                        "contents": []
                     }
                 ]
             }
