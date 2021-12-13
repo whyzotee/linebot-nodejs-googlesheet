@@ -16,7 +16,7 @@ CHANNEL_SECRET=Line Channel secret
 ```
 credentials.json
 ```
-เป็นไฟล์ได้โหลดได้จาก Google Sheet API
+เป็นไฟล์ที่โหลดได้จาก Google Sheet API
 ```
 channelAccessToken: `Line Channel access token` ("เอาได้จาก Line Developer ครับ") <br>
 channelSecret: `Line Channel secret` ("เอาได้จาก Line Developer ครับ") <br>
