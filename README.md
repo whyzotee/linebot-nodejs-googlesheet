@@ -16,7 +16,7 @@ spreadsheetId: `Google Sheet ID` ("เอาได้จากลิงค์ Go
 **ปล2. เอาบัญชีที่เพิ่มใน Google API ไปใส่ใน Google Sheet ของเราแล้วปรับเป็น แก้ไขได้ครับ
 เพื่อให้บอทเข้าไปแก้ไข Google Sheet ได้
 
-## Source Code รสมะเขือเทศครับ
+## Source Code รสพริกครับ
 ```js
 const { google } = require("googleapis");
 const line = require('@line/bot-sdk');
