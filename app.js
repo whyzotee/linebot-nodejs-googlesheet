@@ -222,7 +222,7 @@ const handleEvent = async (event) => {
                 });
                 confirm = 0;
                 return client.replyMessage(event.replyToken, {"type": "text", "text": "เพิ่มสินค้าลงในคลังเรียบร้อยแล้วค้าบ >_<"});
-            } else if (confirm == 1 && event.message.text == "ไม่" || event.message.text.toLowerCase() == "n") {
+            } else if (event.message.text == "ไม่" || event.message.text.toLowerCase() == "n") {
                 confirm = 0;
                 return client.replyMessage(event.replyToken, {"type": "text", "text": "ยกเลิกการเพิ่มข้อมูลใหม่เรียบร้อยแล้ว!"});
             }
@@ -236,7 +236,7 @@ const handleEvent = async (event) => {
                 await googleSheets.spreadsheets.batchUpdate({auth: auth,spreadsheetId: spreadsheetId, resource: resource});
                 confirm = 0;
                 return client.replyMessage(event.replyToken, {"type": "text", "text": "ลบข้อมูลสินค้าในคลังเรียบร้อยแล้วค้าบ >_<"});
-            } else if (confirm == 2 && event.message.text == "ไม่" || event.message.text.toLowerCase() == "n") {
+            } else if (event.message.text == "ไม่" || event.message.text.toLowerCase() == "n") {
                 confirm = 0;
                 return client.replyMessage(event.replyToken, {"type": "text", "text": "ยกเลิกการลบข้อมูลเรียบร้อยแล้ว!"});
             }
