@@ -107,8 +107,8 @@ const handleEvent = async (event) => {
         }
 
         message.msg2.contents.body.contents[1].text = args[1];
-        message.msg2.contents.body.contents[3].contents[0].contents[1].text = x;
-        message.msg2.contents.body.contents[3].contents[1].contents[1].text = y;
+        message.msg2.contents.body.contents[3].contents[0].contents[1].text = x+" หน่วย";
+        message.msg2.contents.body.contents[3].contents[1].contents[1].text = y+" บาท";
 
         // เริ่มคำสั่ง
         switch (cmd){
