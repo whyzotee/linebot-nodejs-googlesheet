@@ -437,7 +437,7 @@
                 "contents": [
                     {
                         "type": "text",
-                        "text": "รายการสินค้า",
+                        "text": "ชื่อสินค้า",
                         "weight": "bold",
                         "color": "#ffdab9",
                         "size": "sm"
