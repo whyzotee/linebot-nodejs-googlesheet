@@ -21,6 +21,11 @@ const auth = new google.auth.GoogleAuth({
     scopes: "https://www.googleapis.com/auth/spreadsheets"
 });
 
+// Configure routing
+app.get("/", (req, res) => {
+    res.sendStatus(200)
+});
+
 // ฟังชั่นหลัก
 app.post('/webhook', line.middleware(lineConfig), async (req, res, next) => {
     try {
@@ -45,7 +50,7 @@ let x, y, sheet
 let checkitem = true;
 
 // ฟังชั่นรอง
-const handleEvent = async (event) => {
+handleEvent = async (event) => {
 
     // ส่วนของ Google
     const authclient = await auth.getClient();
@@ -192,7 +197,7 @@ const handleEvent = async (event) => {
         }
 
         // ส่งข้อมูลกลับไปยังฟังชั่นหลัก
-        return client.replyMessage(event.replyToken, replyLineMessage);
+        return client.replyMessage(event.replyToken, replyLineMessage).catch((err) => {console.log(err)});
 
     // พิมหาบอทที่ไม่ใช่ command
     } else {
@@ -221,10 +226,10 @@ const handleEvent = async (event) => {
                     }
                 });
                 confirm = 0;
-                return client.replyMessage(event.replyToken, {"type": "text", "text": "เพิ่มสินค้าลงในคลังเรียบร้อยแล้วค้าบ >_<"});
+                return client.replyMessage(event.replyToken, {"type": "text", "text": "เพิ่มสินค้าลงในคลังเรียบร้อยแล้วค้าบ >_<"}).catch((err) => {console.log(err)});
             } else if (event.message.text == "ไม่" || event.message.text.toLowerCase() == "n") {
                 confirm = 0;
-                return client.replyMessage(event.replyToken, {"type": "text", "text": "ยกเลิกการเพิ่มข้อมูลใหม่เรียบร้อยแล้ว!"});
+                return client.replyMessage(event.replyToken, {"type": "text", "text": "ยกเลิกการเพิ่มข้อมูลใหม่เรียบร้อยแล้ว!"}).catch((err) => {console.log(err)});
             }
             
         // ยืนยันการลบข้อมูล
@@ -235,10 +240,10 @@ const handleEvent = async (event) => {
                 }
                 await googleSheets.spreadsheets.batchUpdate({auth: auth,spreadsheetId: spreadsheetId, resource: resource});
                 confirm = 0;
-                return client.replyMessage(event.replyToken, {"type": "text", "text": "ลบข้อมูลสินค้าในคลังเรียบร้อยแล้วค้าบ >_<"});
+                return client.replyMessage(event.replyToken, {"type": "text", "text": "ลบข้อมูลสินค้าในคลังเรียบร้อยแล้วค้าบ >_<"}).catch((err) => {console.log(err)});
             } else if (event.message.text == "ไม่" || event.message.text.toLowerCase() == "n") {
                 confirm = 0;
-                return client.replyMessage(event.replyToken, {"type": "text", "text": "ยกเลิกการลบข้อมูลเรียบร้อยแล้ว!"});
+                return client.replyMessage(event.replyToken, {"type": "text", "text": "ยกเลิกการลบข้อมูลเรียบร้อยแล้ว!"}).catch((err) => {console.log(err)});
             }
         }
 
@@ -259,8 +264,8 @@ const handleEvent = async (event) => {
                     break
             }  
         } else replyLineMessage = {"type": "text", "text": replymsgY[Math.floor(Math.random()*replymsgY.length)] };
-
-        return client.replyMessage(event.replyToken, replyLineMessage);
+        
+        return client.replyMessage(event.replyToken, replyLineMessage).catch((err) => {console.log(err)});
     }
 }
 
