@@ -39,6 +39,7 @@ app.post('/webhook', line.middleware(lineConfig), async (req, res, next) => {
         res.status(500).end()
     }
 });
+
 // ตัวแปลไว้เก็บข้อความแบบ Global
 let replyLineMessage
 
