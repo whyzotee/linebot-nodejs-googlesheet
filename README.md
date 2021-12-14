@@ -3,7 +3,7 @@
 ## ตัวอย่างครับ
 
 ![image](https://user-images.githubusercontent.com/53619535/145721215-c0706223-7f44-4300-90d6-16f2804b5c2c.png)<br>
-![image](https://user-images.githubusercontent.com/53619535/145722338-d94249fb-e175-4cbd-a916-6a54527bcf05.png)
+![image](https://user-images.githubusercontent.com/53619535/145942257-5415c9d6-613c-4e71-808f-6e02e86785ba.png)
 ![image](https://user-images.githubusercontent.com/53619535/145942107-98f843a2-699b-4df5-8586-8ea98f7d4e6c.png)
 ![image](https://user-images.githubusercontent.com/53619535/145942187-b93fa4bd-6617-4cc1-8e21-06d7bce4b63a.png)
 
