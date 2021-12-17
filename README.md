@@ -7,11 +7,11 @@
 ![image](https://user-images.githubusercontent.com/53619535/145942107-98f843a2-699b-4df5-8586-8ea98f7d4e6c.png)
 ![image](https://user-images.githubusercontent.com/53619535/145942187-b93fa4bd-6617-4cc1-8e21-06d7bce4b63a.png)
 
-## Setup Project
+## Setup Project And Source Code
 `
 บางอย่างผมก็จำไม่ได้นะครับ 😅
 `
-https://github.com/Z0TEExt/LineBot-Nodejs/wiki/LineBot
+https://github.com/Z0TEExt/linebot-nodejs-googlesheet/wiki/LineBot
 
 ## License
 ก็อปได้ครับ แต่ให้เครดิตด้วยนะค้าบบบ
