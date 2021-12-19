@@ -211,6 +211,7 @@ handleEvent = async (event) => {
         let usermsg = ["มี", "ใช่"]
         let replymsgX = ["ต้องการใช้งานบอทหรอครับ? (โปรดพิม ใช่ ถ้าต้องการใช้งานครับ)", "มีอะไรให้ช่วยไหมครับ >_< (โปรดพิม มี ถ้าต้องการใช้งานครับ)"]
         let replymsgY = ["โปรดพิม !help ครับ", "พิม !help ดูสิ!", "พิม !help เพื่อดูคำสั่งครับ"]
+        let replymsgZ = ["อ่าวววว...เหงาหรอครับวัยรุ่น", "...", "ไม่อะไรครับ", "ไม่ต้องพูดดดดด"]
 
         // เช็คคำที่ผู้ใช้งานพิมมา
         for (var i=0; i < usermsg.length; i++) {
@@ -261,8 +262,11 @@ handleEvent = async (event) => {
                 case "มะม่วง" :
                     replyLineMessage = {"type": "text", "text": "Mango!"};
                     break
-                 case "ห้ะ" :
+                case "ห้ะ" :
                     replyLineMessage = {"type": "text", "text": "ห้ะ!"};
+                    break
+                case "ไม่" :
+                    replyLineMessage = {"type": "text", "text": replymsgZ[Math.floor(Math.random()*replymsgZ.length)] };
                     break
                 default :
                     replyLineMessage = {"type": "text", "text": replymsgX[Math.floor(Math.random()*replymsgX.length)] };
