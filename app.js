@@ -92,7 +92,7 @@ handleEvent = async (event) => {
                 sheet = i;
             }
         }
-        
+
         // ส่งข้อมูลไปเก็บไว้ใน ไฟล์ JSON
         let num1 = 1;
         let num2 = 0;
@@ -178,6 +178,10 @@ handleEvent = async (event) => {
                     break
                 }
             case "rmst":
+                if (getRows.data.values[10] == null){
+                    replyLineMessage = {"type": "text", "text": "ไม่สามารถลบข้อมูลได้ เนื่องจากข้อมูลสินค้าน้อยเกินไป โปรดเพิ่มสิ้นค้าก่อนจะลบครับ"}
+                    break
+                }
                 if (args[1] == null){
                     replyLineMessage = {"type": "text", "text": "โปรดกรอกข้อมูลที่ต้องลบ ตัวอย่างเช่น !rmst ชื่อสินค้า"}
                     break
